@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Style Well Hair Studio - Register</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        width: 100%;
+        /* Theme: Dark blue gradient background */
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(93, 206, 234, 0.4)),
+          url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23051636" width="1920" height="1080"/></svg>');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        
+        /* Layout: No scroll on body, flex column to center content */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; 
+        overflow: hidden; 
+        position: relative;
+      }
+
+            /* Navbar positioning and styling */
+      .nav-right {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 20px;
+        backdrop-filter: blur(10px);
+        border-radius: 0 0 0 15px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .nav-right a {
+        color: whitesmoke;
+        text-decoration: none;
+        margin-left: 15px;
+        font-weight: 500;
+        font-size: 20px;
+        transition: all 0.3s ease;
+        position: relative;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .nav-right a:first-child {
+        margin-left: 0;
+      }
+
+      .nav-right a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #87ceeb;
+        transition: width 0.3s ease;
+      }
+
+      .nav-right a:hover {
+        transform: translateY(-2px);
+      }
+
+      .nav-right a:hover::after {
+        width: 100%;
+      }
+
+      /* Form container */
+      .form-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        /* Tightened padding to fit screen better */
+        padding: 25px 35px; 
+        width: 100%;
+        max-width: 400px; /* Slightly wider for better proportions */
+        
+        /* Centering & Sizing logic */
+        margin: 0;
+        max-height: 90vh; /* Ensure form never exceeds viewport height */
+        overflow-y: auto; /* Scroll inside form ONLY on very small screens */
+        
+        border: 2px solid rgba(135, 206, 235, 0.3);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        
+        /* Custom scrollbar for internal form scrolling */
+        scrollbar-width: thin;
+        scrollbar-color: rgba(135, 206, 235, 0.5) transparent;
+      }
+
+      .form-container::-webkit-scrollbar {
+        width: 6px;
+      }
+      .form-container::-webkit-scrollbar-thumb {
+        background-color: rgba(135, 206, 235, 0.3);
+        border-radius: 10px;
+      }
+
+      .form-container h2 {
+        font-family: "Kaushan Script", cursive;
+        color: whitesmoke;
+        font-size: 38px;
+        text-align: center;
+        margin-bottom: 5px; /* Reduced margin */
+        text-shadow: 2px 2px 10px rgba(135, 206, 235, 0.5);
+      }
+
+      .form-subtitle {
+        text-align: center;
+        color: #87ceeb;
+        font-size: 13px;
+        margin-bottom: 20px; /* Reduced margin */
+        font-style: italic;
+        opacity: 0.9;
+      }
+
+      /* Form styling */
+      form {
+        width: 100%;
+      }
+
+      .form-group {
+        margin-bottom: 14px; /* Reduced margin to fit fields vertically */
+        position: relative;
+      }
+
+      label {
+        color: #bde0fe;
+        font-weight: 500;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"] {
+        width: 100%;
+        padding: 10px 14px; /* Slightly tighter padding */
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid rgba(135, 206, 235, 0.3);
+        border-radius: 10px;
+        color: whitesmoke;
+        font-size: 14px;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+      }
+
+      input[type="text"]:focus,
+      input[type="password"]:focus,
+      input[type="email"]:focus {
+        outline: none;
+        border-color: #87ceeb;
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 0 4px rgba(135, 206, 235, 0.2);
+      }
+
+      input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Password container */
+      .password-container {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #87ceeb;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 16px;
+      }
+
+      .password-toggle:hover {
+        color: #5dcee6;
+      }
+
+      /* Error state */
+      .form-group.error input {
+        border-color: #ff6b6b !important;
+        background: rgba(255, 107, 107, 0.15) !important;
+      }
+
+      .form-group.success input {
+        border-color: #2ed573 !important;
+      }
+
+      .error-message {
+        color: #ff6b6b;
+        font-size: 11px;
+        margin-top: 4px;
+        display: none;
+        font-weight: 500;
+      }
+
+      .form-group.error .error-message {
+        display: block;
+      }
+
+      .success-icon,
+      .error-icon {
+        position: absolute;
+        right: 45px; /* Adjusted for tighter input padding */
+        top: 38px; /* Aligned visually with input */
+        transform: translateY(-50%);
+        display: none;
+        font-size: 14px;
+      }
+
+      .form-group.success .success-icon {
+        display: block;
+        color: #2ed573;
+      }
+
+      .form-group.error .error-icon {
+        display: block;
+        color: #ff6b6b;
+      }
+
+      /* Password strength indicator */
+      .password-strength {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        margin-top: 6px;
+        overflow: hidden;
+        display: none;
+      }
+
+      .password-strength-bar {
+        height: 100%;
+        width: 0;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .strength-weak { width: 33%; background: #ff6b6b; }
+      .strength-medium { width: 66%; background: #ffb800; }
+      .strength-strong { width: 100%; background: #2ed573; }
+
+      .password-strength-text {
+        font-size: 10px;
+        margin-top: 4px;
+        text-align: right;
+        display: none;
+      }
+
+      /* Checkbox styling */
+      .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 14px; /* Reduced margin */
+        gap: 8px;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        accent-color: #5dcee6;
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+
+      .checkbox-group label {
+        color: whitesmoke;
+        font-size: 11px;
+        text-transform: none;
+        letter-spacing: normal;
+        font-weight: 400;
+        cursor: pointer;
+        flex: 1;
+        line-height: 1.4;
+      }
+
+      .checkbox-group a {
+        color: #87ceeb;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .checkbox-group a:hover {
+        color: #5dcee6;
+      }
+
+      /* Submit button */
+      button[type="submit"] {
+        width: 100%;
+        padding: 12px; /* Slightly tighter padding */
+        background: linear-gradient(135deg, #5dcee6, #008b8b);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 5px;
+      }
+
+      button[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(93, 206, 234, 0.5);
+        background: linear-gradient(135deg, #6ed9f0, #009999);
+      }
+
+      button[type="submit"]:active {
+        transform: translateY(0);
+      }
+
+      /* Additional links */
+      .additional-links {
+        text-align: center;
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(135, 206, 235, 0.2);
+      }
+
+      .additional-links p {
+        color: whitesmoke;
+        font-size: 12px;
+      }
+
+      .additional-links a {
+        color: #87ceeb;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .additional-links a:hover {
+        color: #5dcee6;
+        text-shadow: 0 0 10px rgba(135, 206, 235, 0.5);
+      }
+
+      /* Social login buttons */
+      .social-login {
+        margin-top: 14px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .social-btn {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid rgba(135, 206, 235, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: whitesmoke;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .social-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: #87ceeb;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
+      }
+
+      .social-btn i {
+        font-size: 14px;
+      }
+
+      /* Success message */
+      .success-message {
+        background: rgba(46, 213, 115, 0.2);
+        border: 1px solid #2ed573;
+        color: #2ed573;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 12px;
+        display: none;
+      }
+
+      .success-message.show {
+        display: block;
+        animation: slideIn 0.4s ease-out;
+      }
+
+      @keyframes slideIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .nav-right {
+          top: 10px;
+          right: 10px;
+          padding: 10px 15px;
+          gap: 10px;
+          width: auto;
+        }
+
+        .nav-right a {
+          font-size: 12px;
+          margin: 0;
+        }
+
+        .form-container {
+          margin: 0;
+          padding: 20px;
+          height: auto;
+          max-height: 85vh; /* More space for mobile nav bars */
+        }
+
+        .social-login {
+          flex-direction: column;
+        }
+        
+        /* Hide less important nav items on very small mobile if needed */
+        .nav-right a:nth-child(3),
+        .nav-right a:nth-child(4) {
+            display: none;
+        }
+      }
+
+      /* Loading animation */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .form-container {
+        animation: fadeIn 0.6s ease-out;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation moved to absolute top right -->
+    <nav class="nav-right">
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'features' %}">Features</a>
+      <a href="{% url 'services' %}">Services</a>
+      <a href="{% url 'testimonials' %}">Testimonials</a>
+      <a href="{% url 'contacts' %}">Contact</a>
+    </nav>
+
+    <div class="form-container">
+      <h2>Register</h2>
+      <p class="form-subtitle">Join the Style Well family today</p>
+      
+      <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i> Registration successful! Welcome aboard!
+      </div>
+
+      <form method="POST" id="registerForm">
+        <div class="form-group" id="username-group">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Choose a username"
+            required
+          />
+          <i class="fas fa-check-circle success-icon"></i>
+          <i class="fas fa-exclamation-circle error-icon"></i>
+          <span class="error-message" id="username-error">Username must be at least 4 characters</span>
+        </div>
+
+        <div class="form-group" id="email-group">
+          <label for="email">Email Address:</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="your.email@example.com"
+            required
+          />
+          <i class="fas fa-check-circle success-icon"></i>
+          <i class="fas fa-exclamation-circle error-icon"></i>
+          <span class="error-message" id="email-error">Please enter a valid email address</span>
+        </div>
+
+        <div class="form-group" id="password-group">
+          <label for="password">Password:</label>
+          <div class="password-container">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Create a strong password"
+              required
+            />
+            <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+          </div>
+          <div class="password-strength" id="passwordStrength">
+            <div class="password-strength-bar" id="passwordStrengthBar"></div>
+          </div>
+          <p class="password-strength-text" id="passwordStrengthText"></p>
+          <span class="error-message" id="password-error">Password must be at least 8 characters with uppercase, lowercase, and number</span>
+        </div>
+
+        <div class="form-group" id="confirm-password-group">
+          <label for="confirm-password">Confirm Password:</label>
+          <div class="password-container">
+            <input
+              type="password"
+              name="confirm_password"
+              id="confirm-password"
+              placeholder="Re-enter your password"
+              required
+            />
+            <i class="fas fa-eye password-toggle" id="toggleConfirmPassword"></i>
+          </div>
+          <i class="fas fa-check-circle success-icon"></i>
+          <i class="fas fa-exclamation-circle error-icon"></i>
+          <span class="error-message" id="confirm-password-error">Passwords do not match</span>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="terms" name="terms" required />
+          <label for="terms">
+            I agree to the
+            <a href="#terms" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+            and
+            <a href="#privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          </label>
+        </div>
+
+        <button type="submit">Create Account</button>
+      </form>
+
+      <div class="additional-links">
+        <p>Already have an account? <a href="#login">Login here</a></p>
+      </div>
+
+      <div class="social-login">
+        <button class="social-btn" onclick="GooglePage()">
+          <i class="fab fa-google"></i> Google
+        </button>
+        <button class="social-btn" onclick="FacebookPage()">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Password toggle functionality
+      const togglePassword = document.getElementById("togglePassword");
+      const passwordInput = document.getElementById("password");
+      const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+      const confirmPasswordInput = document.getElementById("confirm-password");
+
+      togglePassword.addEventListener("click", () => {
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+        togglePassword.classList.toggle("fa-eye");
+        togglePassword.classList.toggle("fa-eye-slash");
+      });
+
+      toggleConfirmPassword.addEventListener("click", () => {
+        const type = confirmPasswordInput.getAttribute("type") === "password" ? "text" : "password";
+        confirmPasswordInput.setAttribute("type", type);
+        toggleConfirmPassword.classList.toggle("fa-eye");
+        toggleConfirmPassword.classList.toggle("fa-eye-slash");
+      });
+
+      // Real-time validation
+      const usernameInput = document.getElementById("username");
+      const emailInput = document.getElementById("email");
+
+      usernameInput.addEventListener("blur", validateUsername);
+      emailInput.addEventListener("blur", validateEmail);
+      passwordInput.addEventListener("input", checkPasswordStrength);
+      passwordInput.addEventListener("blur", validatePassword);
+      confirmPasswordInput.addEventListener("blur", validateConfirmPassword);
+
+      function validateUsername() {
+        const username = usernameInput.value.trim();
+        const group = document.getElementById("username-group");
+        const error = document.getElementById("username-error");
+
+        if (username.length < 4) {
+          group.classList.add("error");
+          group.classList.remove("success");
+          error.textContent = "Username must be at least 4 characters";
+          return false;
+        } else if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+          group.classList.add("error");
+          group.classList.remove("success");
+          error.textContent = "Username can only contain letters, numbers, and underscores";
+          return false;
+        } else {
+          group.classList.remove("error");
+          group.classList.add("success");
+          return true;
+        }
+      }
+
+      function validateEmail() {
+        const email = emailInput.value.trim();
+        const group = document.getElementById("email-group");
+        const error = document.getElementById("email-error");
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(email)) {
+          group.classList.add("error");
+          group.classList.remove("success");
+          error.textContent = "Please enter a valid email address";
+          return false;
+        } else {
+          group.classList.remove("error");
+          group.classList.add("success");
+          return true;
+        }
+      }
+
+      function checkPasswordStrength() {
+        const password = passwordInput.value;
+        const strengthBar = document.getElementById("passwordStrengthBar");
+        const strengthText = document.getElementById("passwordStrengthText");
+        const strengthContainer = document.getElementById("passwordStrength");
+
+        if (password.length === 0) {
+          strengthContainer.style.display = "none";
+          strengthText.style.display = "none";
+          return;
+        }
+
+        strengthContainer.style.display = "block";
+        strengthText.style.display = "block";
+
+        let strength = 0;
+        if (password.length >= 8) strength++;
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+        if (/\d/.test(password)) strength++;
+        if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+        strengthBar.className = "password-strength-bar";
+
+        if (strength <= 1) {
+          strengthBar.classList.add("strength-weak");
+          strengthText.textContent = "Weak password";
+          strengthText.style.color = "#ff6b6b";
+        } else if (strength <= 2) {
+          strengthBar.classList.add("strength-medium");
+          strengthText.textContent = "Medium password";
+          strengthText.style.color = "#ffb800";
+        } else {
+          strengthBar.classList.add("strength-strong");
+          strengthText.textContent = "Strong password";
+          strengthText.style.color = "#2ed573";
+        }
+      }
+
+      function validatePassword() {
+        const password = passwordInput.value;
+        const group = document.getElementById("password-group");
+        const error = document.getElementById("password-error");
+
+        if (password.length < 8) {
+          group.classList.add("error");
+          group.classList.remove("success");
+          error.textContent = "Password must be at least 8 characters";
+          return false;
+        } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+          group.classList.add("error");
+          group.classList.remove("success");
+          error.textContent = "Password must contain uppercase, lowercase, and number";
+          return false;
+        } else {
+          group.classList.remove("error");
+          group.classList.add("success");
+          return true;
+        }
+      }
+
+      function validateConfirmPassword() {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        const group = document.getElementById("confirm-password-group");
+        const error = document.getElementById("confirm-password-error");
+
+        if (password !== confirmPassword) {
+          group.classList.add("error");
+          group.classList.remove("success");
+          error.textContent = "Passwords do not match";
+          return false;
+        } else if (confirmPassword.length === 0) {
+          group.classList.remove("error");
+          group.classList.remove("success");
+          return false;
+        } else {
+          group.classList.remove("error");
+          group.classList.add("success");
+          return true;
+        }
+      }
+
+      // Form submission
+      document.getElementById("registerForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const isUsernameValid = validateUsername();
+        const isEmailValid = validateEmail();
+        const isPasswordValid = validatePassword();
+        const isConfirmPasswordValid = validateConfirmPassword();
+        const termsChecked = document.getElementById("terms").checked;
+
+        if (!termsChecked) {
+          const termsLabel = document.querySelector('label[for="terms"]');
+          termsLabel.style.color = "#ff6b6b";
+          setTimeout(() => {
+            termsLabel.style.color = "whitesmoke";
+          }, 2000);
+          return;
+        }
+
+        if (
+          isUsernameValid &&
+          isEmailValid &&
+          isPasswordValid &&
+          isConfirmPasswordValid
+        ) {
+          const successMsg = document.getElementById("successMessage");
+          successMsg.classList.add("show");
+
+          setTimeout(() => {
+            this.reset();
+            successMsg.classList.remove("show");
+            document.querySelectorAll(".form-group").forEach((group) => {
+              group.classList.remove("success", "error");
+            });
+            document.getElementById("passwordStrength").style.display = "none";
+            document.getElementById("passwordStrengthText").style.display = "none";
+          }, 3000);
+        }
+      });
+
+      // Social login functions
+      function GooglePage() {
+        window.open("https://accounts.google.com/signin", "_blank", "noopener,noreferrer");
+      }
+
+      function FacebookPage() {
+        window.open("https://www.facebook.com/login/", "_blank", "noopener,noreferrer");
+      }
+    </script>
+  </body>
+</html>
