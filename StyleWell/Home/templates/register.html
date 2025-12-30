@@ -470,6 +470,8 @@
         animation: fadeIn 0.6s ease-out;
       }
     </style>
+
+    
   </head>
   <body>
     <!-- Navigation moved to absolute top right -->
@@ -490,6 +492,7 @@
       </div>
 
       <form method="POST" id="registerForm">
+        {% csrf_token %}
         <div class="form-group" id="username-group">
           <label for="username">Username:</label>
           <input
@@ -568,7 +571,7 @@
       </form>
 
       <div class="additional-links">
-        <p>Already have an account? <a href="#login">Login here</a></p>
+        <p>Already have an account? <a href="{% url 'home' %}">Login here</a></p>
       </div>
 
       <div class="social-login">
@@ -736,43 +739,17 @@
 
       // Form submission
       document.getElementById("registerForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-
         const isUsernameValid = validateUsername();
         const isEmailValid = validateEmail();
         const isPasswordValid = validatePassword();
         const isConfirmPasswordValid = validateConfirmPassword();
         const termsChecked = document.getElementById("terms").checked;
 
-        if (!termsChecked) {
-          const termsLabel = document.querySelector('label[for="terms"]');
-          termsLabel.style.color = "#ff6b6b";
-          setTimeout(() => {
-            termsLabel.style.color = "whitesmoke";
-          }, 2000);
-          return;
+        if (!isUsernameValid || !isEmailValid || !isPasswordValid || !isConfirmPasswordValid || !termsChecked) {
+            e.preventDefault(); // ❌ Stop ONLY if invalid
         }
+    });
 
-        if (
-          isUsernameValid &&
-          isEmailValid &&
-          isPasswordValid &&
-          isConfirmPasswordValid
-        ) {
-          const successMsg = document.getElementById("successMessage");
-          successMsg.classList.add("show");
-
-          setTimeout(() => {
-            this.reset();
-            successMsg.classList.remove("show");
-            document.querySelectorAll(".form-group").forEach((group) => {
-              group.classList.remove("success", "error");
-            });
-            document.getElementById("passwordStrength").style.display = "none";
-            document.getElementById("passwordStrengthText").style.display = "none";
-          }, 3000);
-        }
-      });
 
       // Social login functions
       function GooglePage() {
