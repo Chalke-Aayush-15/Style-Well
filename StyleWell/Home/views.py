@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 
@@ -16,6 +17,12 @@ def testimonials(request):
 
 def contacts(request):
     return render(request, 'contacts.html')
+
+def adminDashboard(request):
+    return render(request, 'admin-dashboard.html')
+
+def userDashboard(request):
+    return render(request, 'user_dashboard.html')
 
 
 def register(request):
@@ -53,6 +60,34 @@ def register(request):
     return render(request, "register.html")
 
 
-def login(request):
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user_obj = User.objects.get(email=email)
+            user = authenticate(
+                request,
+                username=user_obj.username,
+                password=password
+            )
+        except User.DoesNotExist:
+            user = None
+
+        if user is not None:
+            login(request, user)
+
+            if user.is_superuser:
+                return redirect('adminDashboard')
+            else:
+                return redirect('userDashboard')
+        else:
+            messages.error(request, "Invalid email or password")
+            return redirect('login')
+
     return render(request, 'login.html')
 
+def logout_view(request):
+    logout(request)
+    return redirect('home')

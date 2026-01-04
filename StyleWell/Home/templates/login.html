@@ -468,15 +468,20 @@
       <a href="{% url 'contacts' %}">Contact</a>
     </nav>
 
-    <div class="form-container">
+    <div class="form-container" >
       <h2>Login</h2>
       <p class="form-subtitle">Welcome back to Style Well</p>
       
-      <div class="success-message" id="successMessage">
-        <i class="fas fa-check-circle"></i> Login successful! Welcome back!
-      </div>
+      {% if messages %}
+        {% for message in messages %}
+          <div class="error-message" style="display:block;">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
 
-      <form method="POST" id="loginForm">
+      <form method="POST" id="loginForm" action="{% url 'login' %}">
+        {% csrf_token %}
         <div class="form-group" id="email-group">
           <label for="email">Email Address:</label>
           <input
@@ -591,29 +596,6 @@
           return true;
         }
       }
-
-      // Form submission
-      document
-        .getElementById("loginForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          const isEmailValid = validateEmail();
-          const isPasswordValid = validatePassword();
-
-          if (isEmailValid && isPasswordValid) {
-            const successMsg = document.getElementById("successMessage");
-            successMsg.classList.add("show");
-
-            setTimeout(() => {
-              this.reset();
-              successMsg.classList.remove("show");
-              document.querySelectorAll(".form-group").forEach((group) => {
-                group.classList.remove("success", "error");
-              });
-            }, 3000);
-          }
-        });
 
       // Social login functions
       function GooglePage() {
