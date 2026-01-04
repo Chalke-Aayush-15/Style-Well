@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon Services Showcase</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poetsen+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- GLOBAL STYLES (Replacing missing all.css) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+
+        /* --- NAVBAR STYLES (From your code + enhancements) --- */
+        .nav-right {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0; /* Added to span full width for better layout */
+            z-index: 1000;
+            padding: 20px 50px;
+            background: rgba(255, 255, 255, 0.95); /* Increased opacity for readability */
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between; /* Added to separate logo and links */
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Added a logo placeholder area since it wasn't in the original snippet but is standard */
+        .logo {
+            font-family: 'Kaushan Script', cursive;
+            font-size: 28px;
+            color: #008B8B;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-right a {
+            color: #008B8B;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-right a:hover {
+            color: #005f5f;
+        }
+
+        /* Hover underline effect */
+        .nav-right a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #008B8B;
+            transition: width 0.3s ease;
+        }
+
+        .nav-right a:hover::after {
+            width: 100%;
+        }
+
+        .logout-btn {
+            color: #e74c3c !important;
+        }
+        .logout-btn:hover {
+            color: #c0392b !important;
+        }
+
+        /* --- SERVICE SECTION STYLES --- */
+        #service {
+            width: 100%;
+            padding: 70px 0;
+            background: #efefef;
+            position: relative;
+        }
+
+        .title-text {
+            text-align: center;
+            padding-bottom: 70px;
+        }
+
+        .title-text p {
+            margin: auto;
+            font-size: 20px;
+            color: #008B8B;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+        }
+
+        .title-text p::after {
+            content: '';
+            width: 50px;
+            height: 35px;
+            background: linear-gradient(#008B8B, #fff);
+            position: absolute;
+            top: -20px;
+            left: 0;
+            z-index: -1;
+            transform: rotate(10deg);
+            border-top-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+        }
+
+        .title-text h1 {
+            font-size: 50px;
+            font-family: 'Poetsen One', cursive;
+        }
+
+        /* Service Grid Layout */
+        .service-box {
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: auto;
+        }
+
+        .single-service {
+            flex-basis: 48%;
+            text-align: center;
+            border-radius: 7px;
+            margin-bottom: 20px;
+            color: #fff;
+            position: relative;
+            height: 350px; /* Fixed height for consistency */
+            overflow: hidden;
+        }
+
+        .single-service img {
+            width: 100%;
+            height: 100%;
+            border-radius: 7px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        /* Overlay & Description */
+        .overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            border-radius: 7px;
+            cursor: pointer;
+            background: linear-gradient(rgba(0,0,0,0.5), #008B8B);
+            opacity: 0;
+            transition: 1s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .single-service:hover .overlay {
+            opacity: 0.9;
+        }
+
+        .single-service:hover img {
+            transform: scale(1.1); /* Slight zoom effect */
+        }
+
+        .service-desc h3 {
+            font-size: 30px;
+            font-family: 'Kaushan Script', cursive;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .service-desc hr {
+            background: #fff;
+            height: 2px;
+            border: 0;
+            margin: 15px auto;
+            width: 60%;
+        }
+
+        .service-desc p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .book-now-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            border-radius: 30px;
+        }
+
+        .book-now-btn:hover {
+            background: #fff;
+            color: #008B8B;
+            transform: translateY(-3px);
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media screen and (max-width: 770px) {
+            .nav-right {
+                padding: 15px 20px;
+                flex-direction: column;
+            }
+            .nav-links {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-right a {
+                margin: 5px 15px;
+                font-size: 14px;
+            }
+            .service-box {
+                flex-direction: column;
+            }
+            .single-service {
+                flex-basis: 100%;
+                margin-bottom: 30px;
+            }
+            .title-text h1 {
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="nav-right">
+      <!-- Added a logo placeholder for visual balance -->
+      <a href="#" class="logo">BarberPro</a>
+      
+      <div class="nav-links">
+          <a href="#">Home</a>
+          <a href="#">Features</a>
+          <a href="#" style="color: #333; font-weight: 700;">Services</a>
+          <a href="#">Testimonials</a>
+          <a href="#">Contact</a>
+          <a href="#" class="logout-btn">Logout</a>
+      </div>
+    </nav>
+
+    <!-- Service Section -->
+    <section id="service">
+      <div class="title-text">
+        <p>SERVICES</p>
+        <h1>We Provide Better</h1>
+      </div>
+      
+      <div class="service-box">
+
+        <!-- Service 1: Hair Cut -->
+        <div class="single-service">
+          <!-- Placeholder Image: Hair Cut theme -->
+          <img src="C:\Users\91816\Downloads\new hairstudio\new hairstudio\StyleWell\Home\Static\images\pic-1.jpg" alt="Hair Cut">
+          <div class="overlay">
+            <div class="service-desc">
+              <h3>Hair Cut</h3>
+              <hr>
+              <p>We don't just cut hair — we curate your look to suit your face shape, lifestyle, and edge.</p>
+              <a href="#" class="book-now-btn" onclick="openPaymentModal(event)">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 2: Beard Trimming -->
+        <div class="single-service">
+          <!-- Placeholder Image: Beard theme -->
+          <img src="C:\Users\91816\Downloads\new hairstudio\new hairstudio\StyleWell\Home\Static\images\pic-2.jpg" alt="Beard Trimming">
+          <div class="overlay">
+            <div class="service-desc">
+              <h3>Beard Trimming</h3>
+              <hr>
+              <p>We shape your beard to match your face, your style, and your lifestyle.</p>
+              <a href="#" class="book-now-btn" onclick="openPaymentModal(event)">Explore More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 3: Hair Styling and Coloring -->
+        <div class="single-service">
+          <!-- Placeholder Image: Styling theme -->
+          <img src="C:\Users\91816\Downloads\new hairstudio\new hairstudio\StyleWell\Home\Static\images\pic-3.jpg" alt="Hair Styling">
+          <div class="overlay">
+            <div class="service-desc">
+              <h3>Hair Styling</h3>
+              <hr>
+              <p>Our expert hands sculpt your hair into a statement of self-expression.</p>
+              <a href="#" class="book-now-btn" onclick="openPaymentModal(event)">Explore More</a> 
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 4: Hair Treatments -->
+        <div class="single-service">
+          <!-- Placeholder Image: Spa/Treatment theme -->
+          <img src="C:\Users\91816\Downloads\new hairstudio\new hairstudio\StyleWell\Home\Static\images\pic-4.jpg" alt="Hair Treatments">
+          <div class="overlay">
+            <div class="service-desc">
+              <h3>Hair Treatments</h3>
+              <hr>
+              <p>Our premium hair treatments are designed to nourish your scalp, repair damage, and restore natural shine.</p>
+              <a href="#" class="book-now-btn" onclick="openPaymentModal(event)">Explore More</a> 
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Simple Script to handle the button click interaction -->
+    <script>
+        // Mock function for the payment/modal interaction mentioned in your HTML
+        function openPaymentModal(e) {
+            e.preventDefault(); // Prevent link jump for demo
+            const serviceName = e.target.parentElement.querySelector('h3').innerText;
+            
+            // Simple visual feedback instead of alert
+            const btn = e.target;
+            const originalText = btn.innerText;
+            
+            btn.innerText = "Loading...";
+            btn.style.background = "#fff";
+            btn.style.color = "#008B8B";
+            
+            setTimeout(() => {
+                btn.innerText = "Coming Soon!";
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = "transparent";
+                    btn.style.color = "#fff";
+                }, 1000);
+            }, 500);
+            
+            console.log(`Opening booking modal for: ${serviceName}`);
+        }
+    </script>
+
+</body>
+</html>
