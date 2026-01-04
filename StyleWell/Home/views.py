@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import UserAccount
-from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 def index(request):
     return render(request, 'home.html')
@@ -18,34 +18,76 @@ def testimonials(request):
 def contacts(request):
     return render(request, 'contacts.html')
 
+def adminDashboard(request):
+    return render(request, 'admin-dashboard.html')
+
+def userDashboard(request):
+    return render(request, 'user_dashboard.html')
+
+
 def register(request):
     if request.method == "POST":
         username = request.POST.get("username")
         email = request.POST.get("email")
-        password1 = request.POST.get("password")
-        password2 = request.POST.get("confirm_password")
+        password = request.POST.get("password")
+        confirm_password = request.POST.get("confirm_password")
 
-        if password1 != password2:
-            messages.error(request, "Passwords do not match!")
-            return redirect('register')
+        # 1️⃣ Password match check
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match")
+            return redirect("register")
 
-        # Save (add hashing for safety)
-        from django.contrib.auth.hashers import make_password
-        UserAccount.objects.create(
+        # 2️⃣ Username exists check
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists")
+            return redirect("register")
+
+        # 3️⃣ Email exists check
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already registered")
+            return redirect("register")
+
+        # 4️⃣ Create user (PASSWORD IS HASHED AUTOMATICALLY ✅)
+        User.objects.create_user(
             username=username,
             email=email,
-            password=make_password(password1)
+            password=password
         )
 
-        messages.success(request, "Account created successfully!")
-        return redirect('login')  # or home
+        messages.success(request, "Account created successfully")
+        return redirect("login")   # or home
 
-    return render(request, 'register.html')
+    return render(request, "register.html")
 
 
-def login(request):
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user_obj = User.objects.get(email=email)
+            user = authenticate(
+                request,
+                username=user_obj.username,
+                password=password
+            )
+        except User.DoesNotExist:
+            user = None
+
+        if user is not None:
+            login(request, user)
+
+            if user.is_superuser:
+                return redirect('adminDashboard')
+            else:
+                return redirect('userDashboard')
+        else:
+            messages.error(request, "Invalid email or password")
+            return redirect('login')
+
     return render(request, 'login.html')
 
-def user_logout(request):
+def logout_view(request):
     logout(request)
     return redirect('home')
