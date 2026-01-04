@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'all.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../static/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poetsen+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poetsen+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<style>
+    /* Navbar positioning and styling */
+.nav-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 20px;
+    /* background: rgba(255, 255, 255, 0.1); */
+    backdrop-filter: blur(10px);
+    border-radius: 0 0 0 15px;
+}
+.nav-right a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 500;
+    font-size: 22px;
+    transition: all 0.3s ease;
+    position: relative;
+    color: #008B8B;
+    transform: translateY(-2px);
+}
+
+.nav-right a:first-child {
+    margin-left: 0;
+}
+
+/* Add a subtle underline effect on hover */
+.nav-right a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #008B8B;
+    transition: width 0.3s ease;
+}
+
+.nav-right a:hover::after {
+    width: 100%;
+}
+
+.logout-btn {
+    color: darkred !important;
+    /* background-color: red; */
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+
+
+
+</style>
+<body>
+    <nav class="nav-right">
+      <a href="{% url 'home'%}">Home</a>
+      <a href="{% url 'features'%}">Features</a>
+      <a href="{% url 'services' %}">Services</a>
+      <a href="{% url 'testimonials'%}">Testimonials</a>
+      <a href="{% url 'contacts'%}">Contact</a>
+
+      <!-- <a href="register.html" class="nav-btn">Register</a>
+      <a href="login.html" class="nav-btn">Login</a> -->
+    </nav>
+    
+    <!-- Testimonials -->
+<section id="testimonial">
+    <div class="title-text">
+    <p>Testimonial</p>
+    <h1>What Clients Say</h1>
+    </div>
+    <div class="testimonial-row">
+        <div class="testimonial-col">
+            <div class="user">
+                <img src="../static/images\Kenn Norman.jpg">
+                <div class="user-info">
+                    <h4>KEN NORMAN</h4>
+                    <small><i class="fa-brands fa-twitter"></i> @kennorman</small>
+                </div>
+            </div>
+            <p>I've tried many salons, but this one stands out. They use quality products and the staff is well-trained and polite.</p>
+        </div>
+    <div class="testimonial-col">
+        <div class="user">
+            <img src="../static/images\img1.jpeg">
+            <div class="user-info">
+                <h4>LIARA KARIAN</h4>
+                <small><i class="fa-brands fa-twitter"></i> @liarakarian</small>
+            </div>
+        </div>
+        <p>Booked a hair smoothening session, and the results are magical. My hair is shiny, straight, and feels brand new!</p>
+    </div>
+    <div class="testimonial-col">
+        <div class="user">
+            <img src="../static/images\\Ricky Danial.jpg">
+            <div class="user-info">
+                <h4>RICKY DANIAL</h4>
+                <small><i class="fa-brands fa-twitter"></i> @rickydanial</small>
+            </div>
+        </div>
+        <p>The ambiance, the service, the results — everything was top-notch. My hair has never felt this smooth. Highly recommended!</p>
+    </div>
+    <div class="testimonial-col">
+        <div class="user">
+            <img src="{% static 'images/Maya Thompson.jpg' %}">
+
+            <div class="user-info">
+                <h4>MAYA THOMSON</h4>
+                <small><i class="fa-brands fa-twitter"></i> @mayathomson</small>
+            </div>
+        </div>
+        <p>From booking to the final look, everything was seamless! I loved the personalized consultation and my haircut is exactly what I wanted. This place is a hidden gem!</p>
+    </div>   
+    
+    <div class="testimonial-col">
+        <div class="user">
+            <img src="../static/images\img5.jpg">
+            <div class="user-info">
+                <h4>DAVE ROGERS</h4>
+                <small><i class="fa-brands fa-twitter"></i> @daverstyles</small>
+            </div>
+        </div>
+        <p>I wasn't expecting much when I walked in, but WOW! My hair color came out perfect and the stylist gave me tips that actually work. Definitely coming back.</p>
+    </div>
+    <div class="testimonial-col">
+            <div class="user">
+                <img src="../static/images\img6.jpg">
+                <div class="user-info">
+                    <h4>SARAH LI</h4>
+                    <small><i class="fa-brands fa-twitter"></i> @sarahli_beauty</small>
+                </div>
+            </div>
+            <p>I've tried countless salons in the city, and this one tops them all. The atmosphere is calm, the service is top-tier, and my curls have never looked better.</p>
+        </div>  
+</section>
+</body>
+</html>

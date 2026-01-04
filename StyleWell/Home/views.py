@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import UserAccount
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 
 def index(request):
     return render(request, 'home.html')
@@ -45,3 +46,6 @@ def register(request):
 def login(request):
     return render(request, 'login.html')
 
+def user_logout(request):
+    logout(request)
+    return redirect('home')
