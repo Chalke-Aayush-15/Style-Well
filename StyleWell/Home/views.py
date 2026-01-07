@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .models import Service
 
 def index(request):
     return render(request, 'home.html')
@@ -91,3 +92,12 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+def haircuts(request):
+    return render(request, 'haircuts.html')
+
+def beard_types(request):
+    services = Service.objects.filter(category='beard')  # optional
+    return render(request, 'beardtypes.html', {
+        'services': services
+    })
