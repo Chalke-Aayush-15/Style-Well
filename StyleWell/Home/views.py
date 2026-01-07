@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.utils import timezone
+from django.shortcuts import render
+from Home.models import Appointment
 
 def index(request):
     return render(request, 'home.html')
@@ -87,6 +91,27 @@ def login_view(request):
             return redirect('login')
 
     return render(request, 'login.html')
+
+
+def dashboard(request):
+    now = timezone.now()
+
+    next_appointment = (
+        Appointment.objects
+        .filter(
+            user=request.user,
+            status='confirmed',
+            date__gte=now.date()
+        )
+        .order_by('date', 'time')
+        .first()
+    )
+
+    context = {
+        'next_appointment': next_appointment,
+    }
+    return render(request, 'dashboard/home.html', context)
+
 
 def logout_view(request):
     logout(request)

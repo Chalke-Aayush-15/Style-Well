@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
 
 class UserAccount(models.Model):
     username = models.CharField(max_length=100, unique=True)
@@ -15,3 +16,23 @@ class UserAccount(models.Model):
 
     def __str__(self):
         return self.username
+    
+class Appointment(models.Model):
+    STATUS_CHOICES = [
+        ('confirmed', 'Confirmed'),
+        ('pending', 'Pending'),
+        ('cancelled', 'Cancelled'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    stylist = models.CharField(max_length=100)
+    service = models.CharField(max_length=255)
+    date = models.DateField()
+    time = models.TimeField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+
+    class Meta:
+        ordering = ['date', 'time']  # important
+
+    def __str__(self):
+        return f"{self.user} - {self.date} {self.time}"

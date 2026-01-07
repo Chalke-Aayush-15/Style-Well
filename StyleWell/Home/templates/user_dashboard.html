@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -530,10 +531,14 @@
         <main class="main-content">
             <!-- Top Navigation -->
             <header class="top-bar">
-                <h3 id="page-title">Welcome back, Sarah!</h3>
+                <h3 id="page-title">Welcome back, {{ user.first_name|default:user.username }}!</h3>
                 <div class="top-actions">
                     <button><i class="fas fa-bell"></i> Notifications</button>
-                    <button style="margin-left: 10px;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    <a href="{% url 'logout' %}" style="margin-left: 10px;">
+                        <button>
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </a>
                 </div>
             </header>
 
@@ -561,22 +566,63 @@
                     </div>
 
                     <!-- Next Appointment Highlight -->
-                    <div class="section-box" style="background: linear-gradient(90deg, rgba(0, 139, 139, 0.2), rgba(93, 206, 234, 0.1)); border: 1px solid #5DCEEA;">
+                    <div class="section-box"
+                        style="background: linear-gradient(90deg, rgba(0, 139, 139, 0.2), rgba(93, 206, 234, 0.1));
+                                border: 1px solid #5DCEEA;">
+
+                        {% if next_appointment %}
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
                                 <h2 style="color: #fff; margin-bottom: 5px;">Next Appointment</h2>
-                                <p style="color: #ccc; font-size: 18px; margin-bottom: 10px;">Friday, Oct 24th at 10:00 AM</p>
+
+                                <p style="color: #ccc; font-size: 18px; margin-bottom: 10px;">
+                                    {{ next_appointment.date|date:"l, M jS" }}
+                                    at {{ next_appointment.time|time:"g:i A" }}
+                                </p>
+
                                 <div style="display: flex; align-items: center; gap: 15px;">
-                                    <span class="status confirmed" style="background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71;">Confirmed</span>
-                                    <span style="color: #ddd;"><i class="fas fa-cut"></i> Balayage & Root Touch Up</span>
+                                    <span class="status confirmed"
+                                        style="background: rgba(46, 204, 113, 0.2);
+                                                color: #2ecc71;
+                                                border: 1px solid #2ecc71;">
+                                        {{ next_appointment.get_status_display }}
+                                    </span>
+
+                                    <span style="color: #ddd;">
+                                        <i class="fas fa-cut"></i>
+                                        {{ next_appointment.service }}
+                                    </span>
                                 </div>
                             </div>
+
                             <div style="text-align: right;">
-                                <h4 style="color: #5DCEEA; margin-bottom: 5px;">with Emma J.</h4>
-                                <button class="action-btn secondary" onclick="switchTab('booking')">Reschedule</button>
+                                <h4 style="color: #5DCEEA; margin-bottom: 5px;">
+                                    with {{ next_appointment.stylist }}
+                                </h4>
+
+                                <a href="{% url 'appointments:reschedule' next_appointment.id %}"
+                                class="action-btn secondary">
+                                    Reschedule
+                                </a>
                             </div>
                         </div>
+
+                        {% else %}
+                        <!-- No Appointment State -->
+                        <div style="text-align: center;">
+                            <h2 style="color: #fff;">Next Appointment</h2>
+                            <p style="color: #ccc;">You have no upcoming appointments.</p>
+                            <br>
+
+                            <a onclick="switchTab('booking')"
+                            class="action-btn primary">
+                                Book Now
+                            </a>
+                        </div>
+                        {% endif %}
+                        <br>
                     </div>
+
 
                     <!-- Quick Actions -->
                      <div class="section-box">
