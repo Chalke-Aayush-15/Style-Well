@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.utils import timezone
 from django.shortcuts import render
 from Home.models import Appointment
+# from .models import Service
 
 def index(request):
     return render(request, 'home.html')
@@ -116,3 +117,12 @@ def dashboard(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+def haircuts(request):
+    return render(request, 'haircuts.html')
+
+def beard_types(request):
+    services = Service.objects.filter(category='beard')  # optional
+    return render(request, 'beardtypes.html', {
+        'services': services
+    })

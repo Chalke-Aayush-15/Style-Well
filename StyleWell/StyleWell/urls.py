@@ -31,5 +31,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('adminDashboard/', views.adminDashboard, name='adminDashboard'),
     path('userDashboard/', views.userDashboard, name='userDashboard'),
+    path('haircuts/', views.haircuts, name='haircuts'),
+    path('beard-types/', views.beard_types, name='beard_types'),
 
 ]
