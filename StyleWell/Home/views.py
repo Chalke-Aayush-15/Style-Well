@@ -121,8 +121,8 @@ def logout_view(request):
 def haircuts(request):
     return render(request, 'haircuts.html')
 
-def beard_types(request):
-    services = Service.objects.filter(category='beard')  # optional
-    return render(request, 'beardtypes.html', {
-        'services': services
-    })
+# def beard_types(request):
+#     services = Service.objects.filter(category='beard')  # optional
+#     return render(request, 'beardtypes.html', {
+#         'services': services
+#     })
