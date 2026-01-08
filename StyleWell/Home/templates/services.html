@@ -338,7 +338,7 @@
               <h3>Beard Trimming</h3>
               <hr>
               <p>We shape your beard to match your face, your style, and your lifestyle.</p>
-              <a href="{% url 'beard_types' %} class="book-now-btn>Explore More</a>
+              <a href="{% url 'beard_types' %}" class=book-now-btn>Explore More</a>
             </div>
           </div>
         </div>
@@ -352,7 +352,10 @@
               <h3>Hair Styling</h3>
               <hr>
               <p>Our expert hands sculpt your hair into a statement of self-expression.</p>
-              <a href="#" class="book-now-btn" onclick="openPaymentModal(event)">Explore More</a> 
+              <a href="{% url 'hairstyling' %}" class="explore-btn">
+                Explore More
+              </a>
+ 
             </div>
           </div>
         </div>

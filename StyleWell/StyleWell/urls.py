@@ -33,5 +33,7 @@ urlpatterns = [
     path('userDashboard/', views.userDashboard, name='userDashboard'),
     path('haircuts/', views.haircuts, name='haircuts'),
     path('beard-types/', views.beard_types, name='beard_types'),
+    path('hairstyling/', views.hairstyling, name='hairstyling'),
+
 
 ]

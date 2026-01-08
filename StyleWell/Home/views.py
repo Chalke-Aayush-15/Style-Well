@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from django.shortcuts import render
-from Home.models import Appointment
+# from Home.models import Appointment
 # from .models import Service
 
 def index(request):
@@ -121,8 +121,10 @@ def logout_view(request):
 def haircuts(request):
     return render(request, 'haircuts.html')
 
-# def beard_types(request):
+def beard_types(request):
 #     services = Service.objects.filter(category='beard')  # optional
-#     return render(request, 'beardtypes.html', {
-#         'services': services
-#     })
+    return render(request, 'beardtypes.html'
+    )
+
+def hairstyling(request):
+    return render(request, 'hairstylingtypes.html')
