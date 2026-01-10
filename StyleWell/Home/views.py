@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from django.shortcuts import render
-# from Home.models import Appointment
+from Home.models import Appointment
+from django.db.models import Q
 # from .models import Service
 
 def index(request):
@@ -25,10 +26,6 @@ def contacts(request):
 
 def adminDashboard(request):
     return render(request, 'admin-dashboard.html')
-
-def userDashboard(request):
-    return render(request, 'user_dashboard.html')
-
 
 def register(request):
     if request.method == "POST":
@@ -93,26 +90,45 @@ def login_view(request):
 
     return render(request, 'login.html')
 
+# @login_required
+# def userDashboard(request):
+#     now = timezone.now()
 
-def dashboard(request):
+#     next_appointment = (
+#         Appointment.objects
+#         .filter(
+#             user=request.user,
+#             status='confirmed'
+#         )
+#         .filter(
+#             Q(date__gt=now.date()) |
+#             Q(date=now.date(), time__gte=now.time())
+#         )
+#         .order_by('date', 'time')
+#         .first()
+#     )
+
+#     return render(request, 'user_dashboard.html', {
+#         'next_appointment': next_appointment
+#     })
+
+
+@login_required
+def userDashboard(request):
     now = timezone.now()
 
-    next_appointment = (
-        Appointment.objects
-        .filter(
-            user=request.user,
-            status='confirmed',
-            date__gte=now.date()
-        )
-        .order_by('date', 'time')
-        .first()
-    )
+    upcoming_appointments = Appointment.objects.filter(
+        user=request.user,
+        status='confirmed'
+    ).filter(
+        Q(date__gt=now.date()) |
+        Q(date=now.date(), time__gte=now.time())
+    ).order_by('date', 'time')
 
-    context = {
-        'next_appointment': next_appointment,
-    }
-    return render(request, 'dashboard/home.html', context)
-
+    return render(request, 'user_dashboard.html', {
+        'upcoming_appointments': upcoming_appointments,
+        'next_appointment': upcoming_appointments.first(),  # optional highlight
+    })
 
 def logout_view(request):
     logout(request)
@@ -128,3 +144,5 @@ def beard_types(request):
 
 def hairstyling(request):
     return render(request, 'hairstylingtypes.html')
+
+
