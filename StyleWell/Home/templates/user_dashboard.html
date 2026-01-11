@@ -600,10 +600,9 @@
                                     with {{ next_appointment.stylist }}
                                 </h4>
 
-                                <a href="{% url 'appointments:reschedule' next_appointment.id %}"
-                                class="action-btn secondary">
+                                <button class="action-btn secondary" disabled>
                                     Reschedule
-                                </a>
+                                </button>
                             </div>
                         </div>
 
@@ -622,6 +621,44 @@
                         {% endif %}
                         <br>
                     </div>
+
+                    <div class="section-box">
+                        <div class="section-header">
+                            <h2 class="brand-font">Upcoming Appointments</h2>
+                        </div>
+
+                        {% if upcoming_appointments %}
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Service</th>
+                                            <th>Stylist</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for appt in upcoming_appointments %}
+                                        <tr>
+                                            <td>{{ appt.date|date:"M d, Y" }}</td>
+                                            <td>{{ appt.time|time:"g:i A" }}</td>
+                                            <td>{{ appt.service }}</td>
+                                            <td>{{ appt.stylist }}</td>
+                                            <td style="color:#2ecc71;">
+                                                {{ appt.get_status_display }}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <p style="color:#ccc;">No upcoming appointments.</p>
+                        {% endif %}
+                    </div>
+
 
 
                     <!-- Quick Actions -->
