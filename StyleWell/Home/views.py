@@ -145,11 +145,6 @@ def beard_types(request):
 def hairstyling(request):
     return render(request, 'hairstylingtypes.html')
 
-
-
-
-
-
 def hair_treatments(request):
     return render(request, 'hairtreatments_types.html')
 
