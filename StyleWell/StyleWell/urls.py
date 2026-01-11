@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Home import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -34,6 +35,10 @@ urlpatterns = [
     path('haircuts/', views.haircuts, name='haircuts'),
     path('beard-types/', views.beard_types, name='beard_types'),
     path('hairstyling/', views.hairstyling, name='hairstyling'),
+    path('hairtreatments_types/',
+    views.hair_treatments,
+    name='hair_treatments'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
 
 ]

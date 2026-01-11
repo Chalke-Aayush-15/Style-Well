@@ -128,3 +128,17 @@ def beard_types(request):
 
 def hairstyling(request):
     return render(request, 'hairstylingtypes.html')
+
+
+def hair_treatments(request):
+    return render(request, 'hairtreatments_types.html')
+
+
+
+
+
+
+
+@login_required
+def admin_dashboard(request):
+    return render(request, 'admin-dashboard.html')
