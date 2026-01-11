@@ -39,6 +39,7 @@ urlpatterns = [
     views.hair_treatments,
     name='hair_treatments'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    
 
 
 ]

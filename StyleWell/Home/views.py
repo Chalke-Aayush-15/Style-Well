@@ -151,3 +151,4 @@ def hair_treatments(request):
 @login_required
 def admin_dashboard(request):
     return render(request, 'admin-dashboard.html')
+
