@@ -150,5 +150,16 @@ def hair_treatments(request):
 
 @login_required
 def admin_dashboard(request):
-    return render(request, 'admin-dashboard.html')
+    now = timezone.localtime()
+    today = now.date()
+    current_time = now.time()
+
+    upcoming_appointments = Appointment.objects.filter(
+        Q(date__gt=today) | 
+        Q(date=today, time__gte=current_time)
+    ).order_by('date', 'time')
+
+    return render(request, 'admin-dashboard.html', {
+        'appointments': upcoming_appointments
+    })
 

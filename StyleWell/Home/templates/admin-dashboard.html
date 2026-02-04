@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Style Well Hair Studio | Admin Dashboard</title>
-    
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -24,7 +26,7 @@
 
         :root {
             --primary-gradient: linear-gradient(135deg, rgba(0, 128, 128, 0.9), rgba(93, 206, 234, 0.9));
-            --bg-image: url('https://picsum.photos/seed/salonDark/1920/1080'); 
+            --bg-image: url('https://picsum.photos/seed/salonDark/1920/1080');
             --glass-bg: rgba(20, 20, 20, 0.6);
             --glass-border: rgba(255, 255, 255, 0.1);
             --glass-card: rgba(30, 30, 30, 0.4);
@@ -39,7 +41,7 @@
 
         body {
             font-family: 'Lato', sans-serif;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0, 30, 40, 0.9)), var(--bg-image);
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 30, 40, 0.9)), var(--bg-image);
             background-position: center;
             background-size: cover;
             background-attachment: fixed;
@@ -49,7 +51,10 @@
         }
 
         /* TYPOGRAPHY */
-        h1, h2, h3, .brand-font {
+        h1,
+        h2,
+        h3,
+        .brand-font {
             font-family: "Kaushan Script", cursive;
             color: #fff;
         }
@@ -94,7 +99,7 @@
         .nav-links a {
             display: flex;
             align-items: center;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             padding: 12px 15px;
             border-radius: 8px;
@@ -108,7 +113,8 @@
             text-align: center;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a:hover,
+        .nav-links a.active {
             background: var(--accent-teal);
             color: #fff;
             transform: translateX(5px);
@@ -136,7 +142,7 @@
             font-size: 15px;
             font-weight: 700;
         }
-        
+
         .user-info p {
             color: #aaa;
             font-size: 12px;
@@ -212,14 +218,17 @@
         .stat-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
             background: var(--accent-teal);
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .stat-card i {
@@ -259,7 +268,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 15px;
         }
 
@@ -290,6 +299,7 @@
             background: transparent;
             border: 1px solid #5DCEEA;
         }
+
         .action-btn.secondary:hover {
             background: rgba(93, 206, 234, 0.2);
         }
@@ -304,10 +314,11 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             text-align: left;
             padding: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         th {
@@ -318,7 +329,7 @@
         }
 
         tr:hover {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .status {
@@ -330,9 +341,23 @@
             text-transform: uppercase;
         }
 
-        .status.confirmed { background-color: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
-        .status.pending { background-color: rgba(243, 156, 18, 0.2); color: #f39c12; border: 1px solid #f39c12; }
-        .status.cancelled { background-color: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #e74c3c; }
+        .status.confirmed {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+
+        .status.pending {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+            border: 1px solid #f39c12;
+        }
+
+        .status.cancelled {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
 
         /* MODAL (Dark Glass) */
         .modal {
@@ -343,27 +368,35 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
             align-items: center;
             justify-content: center;
         }
 
         .modal-content {
-            background: #1a1a1a; /* Solid dark for readability */
+            background: #1a1a1a;
+            /* Solid dark for readability */
             padding: 30px;
             border-radius: 16px;
             width: 90%;
             max-width: 500px;
             position: relative;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             animation: slideDown 0.3s ease-out;
         }
 
         @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .close-modal {
@@ -386,17 +419,19 @@
             font-size: 14px;
         }
 
-        .form-group input, .form-group select {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             color: #fff;
             font-family: inherit;
         }
-        
-        .form-group input:focus, .form-group select:focus {
+
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #5DCEEA;
         }
@@ -409,7 +444,7 @@
         }
 
         .stylist-card {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 12px;
             padding: 20px;
             text-align: center;
@@ -418,7 +453,7 @@
         }
 
         .stylist-card:hover {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             transform: translateY(-3px);
         }
 
@@ -443,7 +478,7 @@
             z-index: 2000;
             right: 30px;
             bottom: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
             font-weight: bold;
             transform: translateY(100px);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -459,15 +494,18 @@
             .dashboard-container {
                 grid-template-columns: 1fr;
             }
+
             .sidebar {
                 display: none;
             }
+
             .content-wrapper {
                 padding: 20px;
             }
         }
     </style>
 </head>
+
 <body>
 
     <div class="dashboard-container">
@@ -477,10 +515,12 @@
                 <h2>Style Well</h2>
                 <p style="color: #5DCEEA; font-size: 11px; letter-spacing: 2px;">ADMIN PANEL</p>
             </div>
-            
+
             <ul class="nav-links">
-                <li><a href="#" class="active" onclick="switchTab('dashboard')"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="#" onclick="switchTab('appointments')"><i class="fas fa-calendar-alt"></i> Appointments</a></li>
+                <li><a href="#" class="active" onclick="switchTab('dashboard')"><i class="fas fa-home"></i>
+                        Dashboard</a></li>
+                <li><a href="#" onclick="switchTab('appointments')"><i class="fas fa-calendar-alt"></i> Appointments</a>
+                </li>
                 <li><a href="#" onclick="switchTab('clients')"><i class="fas fa-users"></i> Clients</a></li>
                 <li><a href="#" onclick="switchTab('stylists')"><i class="fas fa-cut"></i> Stylists</a></li>
                 <li><a href="#" onclick="switchTab('services')"><i class="fas fa-tags"></i> Services</a></li>
@@ -503,12 +543,13 @@
                 <h3 id="page-title">Dashboard Overview</h3>
                 <div class="top-actions">
                     <button onclick="window.location.reload()"><i class="fas fa-sync-alt"></i> Refresh</button>
-                    <a href="{% url 'logout' %}" style="margin-left: 10px;"><button ><i class="fas fa-sign-out-alt"></i> Logout</button></a>
+                    <a href="{% url 'logout' %}" style="margin-left: 10px;"><button><i class="fas fa-sign-out-alt"></i>
+                            Logout</button></a>
                 </div>
             </header>
 
             <div class="content-wrapper">
-                
+
                 <!-- VIEW: DASHBOARD HOME -->
                 <div id="view-dashboard" class="view-section">
                     <!-- Stats Cards -->
@@ -539,7 +580,8 @@
                     <div class="section-box">
                         <div class="section-header">
                             <h2 class="brand-font">Today's Schedule</h2>
-                            <button class="action-btn" onclick="openModal()"><i class="fas fa-plus"></i> New Appointment</button>
+                            <button class="action-btn" onclick="openModal()"><i class="fas fa-plus"></i> New
+                                Appointment</button>
                         </div>
                         <div class="table-responsive">
                             <table id="dashboard-table">
@@ -554,39 +596,40 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for appt in appointments %}
                                     <tr>
-                                        <td>09:00 AM</td>
-                                        <td>Sarah Smith</td>
-                                        <td>Emma J.</td>
-                                        <td>Haircut & Blowdry</td>
-                                        <td><span class="status confirmed">Confirmed</span></td>
-                                        <td><button class="action-btn secondary" style="padding: 5px 15px; font-size: 12px; border-radius: 20px;">View</button></td>
+                                        <td>{{ appt.time|time:"h:i A" }}</td>
+                                        <td>{{ appt.user.username }}</td>
+                                        <td>{{ appt.stylist }}</td>
+                                        <td>{{ appt.service }}</td>
+
+                                        <td>
+                                            {% if appt.status == "confirmed" %}
+                                            <span class="status confirmed">Confirmed</span>
+                                            {% elif appt.status == "pending" %}
+                                            <span class="status pending">Pending</span>
+                                            {% elif appt.status == "cancelled" %}
+                                            <span class="status cancelled">Cancelled</span>
+                                            {% endif %}
+                                        </td>
+
+                                        <td>
+                                            <button class="action-btn secondary"
+                                                style="padding:5px 15px; font-size:12px;">
+                                                View
+                                            </button>
+                                        </td>
                                     </tr>
+
+                                    {% empty %}
                                     <tr>
-                                        <td>10:30 AM</td>
-                                        <td>Mike Ross</td>
-                                        <td>David B.</td>
-                                        <td>Beard Trim</td>
-                                        <td><span class="status pending">Pending</span></td>
-                                        <td><button class="action-btn secondary" style="padding: 5px 15px; font-size: 12px; border-radius: 20px;">View</button></td>
+                                        <td colspan="6" style="text-align:center; color:#aaa;">
+                                            No upcoming appointments
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>11:00 AM</td>
-                                        <td>Jessica Pearson</td>
-                                        <td>Emma J.</td>
-                                        <td>Full Color</td>
-                                        <td><span class="status confirmed">Confirmed</span></td>
-                                        <td><button class="action-btn secondary" style="padding: 5px 15px; font-size: 12px; border-radius: 20px;">View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>01:00 PM</td>
-                                        <td>Louis Litt</td>
-                                        <td>David B.</td>
-                                        <td>Styling</td>
-                                        <td><span class="status cancelled">Cancelled</span></td>
-                                        <td><button class="action-btn secondary" style="padding: 5px 15px; font-size: 12px; border-radius: 20px;">View</button></td>
-                                    </tr>
+                                    {% endfor %}
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -597,7 +640,8 @@
                     <div class="section-box">
                         <div class="section-header">
                             <h2 class="brand-font">All Appointments</h2>
-                            <input type="date" style="padding: 10px; border: 1px solid #555; border-radius: 8px; background: #333; color: #fff;">
+                            <input type="date"
+                                style="padding: 10px; border: 1px solid #555; border-radius: 8px; background: #333; color: #fff;">
                         </div>
                         <p style="padding: 20px; text-align: center; color: #888;">Full calendar view would go here.</p>
                     </div>
@@ -615,25 +659,36 @@
                             <div class="stylist-card">
                                 <img src="https://picsum.photos/seed/stylist1/100/100">
                                 <h4 style="font-family:'Lato'; margin-bottom: 5px; color: #fff;">Emma J.</h4>
-                                <span style="font-size: 12px; color: #aaa; display: block; margin-bottom: 10px;">Senior Stylist</span>
-                                <p style="font-size: 13px; color: #888; margin-bottom: 15px;">Specializes in color correction and balayage.</p>
-                                <span class="status confirmed" style="font-size: 10px; background: rgba(46, 204, 113, 0.1); border-color: transparent; color: #2ecc71;">Available</span>
+                                <span style="font-size: 12px; color: #aaa; display: block; margin-bottom: 10px;">Senior
+                                    Stylist</span>
+                                <p style="font-size: 13px; color: #0e0a0a; margin-bottom: 15px;">Specializes in color
+                                    correction and balayage.</p>
+                                <span class="status confirmed"
+                                    style="font-size: 10px; background: rgba(46, 204, 113, 0.1); border-color: transparent; color: #2ecc71;">Available</span>
                             </div>
                             <!-- Stylist Card 2 -->
                             <div class="stylist-card">
                                 <img src="https://picsum.photos/seed/stylist2/100/100">
                                 <h4 style="font-family:'Lato'; margin-bottom: 5px; color: #fff;">David B.</h4>
-                                <span style="font-size: 12px; color: #aaa; display: block; margin-bottom: 10px;">Barber</span>
-                                <p style="font-size: 13px; color: #888; margin-bottom: 15px;">Expert in classic cuts and modern fades.</p>
-                                <span class="status pending" style="font-size: 10px; background: rgba(243, 156, 18, 0.1); border-color: transparent; color: #f39c12;">With Client</span>
+                                <span
+                                    style="font-size: 12px; color: #aaa; display: block; margin-bottom: 10px;">Barber</span>
+                                <p style="font-size: 13px; color: #888; margin-bottom: 15px;">Expert in classic cuts and
+                                    modern fades.</p>
+                                <span class="status pending"
+                                    style="font-size: 10px; background: rgba(243, 156, 18, 0.1); border-color: transparent; color: #f39c12;">With
+                                    Client</span>
                             </div>
-                             <!-- Stylist Card 3 -->
-                             <div class="stylist-card">
+                            <!-- Stylist Card 3 -->
+                            <div class="stylist-card">
                                 <img src="https://picsum.photos/seed/stylist3/100/100">
                                 <h4 style="font-family:'Lato'; margin-bottom: 5px; color: #fff;">Sophia R.</h4>
-                                <span style="font-size: 12px; color: #aaa; display: block; margin-bottom: 10px;">Junior Stylist</span>
-                                <p style="font-size: 13px; color: #888; margin-bottom: 15px;">Great with kids' cuts and styling.</p>
-                                <span class="status cancelled" style="font-size: 10px; background: rgba(231, 76, 60, 0.1); border-color: transparent; color: #e74c3c;">Off Duty</span>
+                                <span style="font-size: 12px; color: #aaa; display: block; margin-bottom: 10px;">Junior
+                                    Stylist</span>
+                                <p style="font-size: 13px; color: #888; margin-bottom: 15px;">Great with kids' cuts and
+                                    styling.</p>
+                                <span class="status cancelled"
+                                    style="font-size: 10px; background: rgba(231, 76, 60, 0.1); border-color: transparent; color: #e74c3c;">Off
+                                    Duty</span>
                             </div>
                         </div>
                     </div>
@@ -712,7 +767,7 @@
             // Update active link styling
             const links = document.querySelectorAll('.nav-links a');
             links.forEach(link => link.classList.remove('active'));
-            
+
             // Find the link that was clicked (approximate logic for demo)
             event.currentTarget.classList.add('active');
         }
@@ -727,7 +782,7 @@
         }
 
         // Close modal if clicked outside content
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const modal = document.getElementById('appointmentModal');
             if (event.target == modal) {
                 modal.style.display = "none";
@@ -740,7 +795,7 @@
             // Simulate API call/processing
             closeModal();
             showToast("Appointment Booked Successfully!");
-            
+
             // Reset form
             document.getElementById('bookingForm').reset();
 
@@ -764,8 +819,9 @@
             const toast = document.getElementById("toast");
             toast.innerText = message;
             toast.className = "toast show";
-            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+            setTimeout(function () { toast.className = toast.className.replace("show", ""); }, 3000);
         }
     </script>
 </body>
+
 </html>
