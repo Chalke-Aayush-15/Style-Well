@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,156 +7,167 @@
 </head>
 <style>
     /* NAVBAR */
-.nav-right {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 1000;
-    padding: 20px;
-    /* background: rgba(255, 255, 255, 0.1); */
-    backdrop-filter: blur(10px);
-    border-radius: 0 0 0 15px;
-}
-.nav-right a {
-    color: #008B8B;
-    text-decoration: none;
-    margin-left: 30px;
-    font-weight: 500;
-    font-size: 20px;
-    transition: all 0.3s ease;
-    position: relative;
-    color: #008B8B;
-    transform: translateY(-2px);
-}
+    .nav-right {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 20px;
+        backdrop-filter: blur(10px);
+        border-radius: 0 0 0 15px;
+    }
+    .nav-right a {
+        color: #008B8B;
+        text-decoration: none;
+        margin-left: 30px;
+        font-weight: 500;
+        font-size: 20px;
+        transition: all 0.3s ease;
+        position: relative;
+        transform: translateY(-2px);
+    }
 
-.nav-right a:first-child {
-    margin-left: 0;
-}
+    .nav-right a:first-child {
+        margin-left: 0;
+    }
 
-/* Add a subtle underline effect on hover */
-.nav-right a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #008B8B;
-    transition: width 0.3s ease;
-}
+    /* Add a subtle underline effect on hover */
+    .nav-right a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #008B8B;
+        transition: width 0.3s ease;
+    }
 
-.nav-right a:hover::after {
-    width: 100%;
-}    
+    .nav-right a:hover::after {
+        width: 100%;
+    }    
 
-/* General font and background */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: 'Segoe UI', sans-serif;
-    background: white; /* solid background */
-    color: #008B8B;
-}
+    /* General font and background */
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Segoe UI', sans-serif;
+        background: white; 
+        color: #008B8B;
+    }
 
 
-/* Section styling */
-#service {
-    width: 100%;
-    padding: 80px 0;
-    background: transparent; /* match body background */
-}
+    /* Section styling */
+    #service {
+        width: 100%;
+        padding: 80px 0;
+        background: transparent; 
+    }
 
 
-/* Title Styling */
-.title-text {
-    text-align: center;
-    font-size: 36px;
-    font-weight: bold;
-    color: #008B8B; 
-    margin-bottom: 40px;
-}
+    /* Title Styling */
+    .title-text {
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+        color: #008B8B; 
+        margin-bottom: 40px;
+    }
 
-/* Service box grid */
-.service-boxes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 24px;
-    padding: 0 30px;
-}
+    /* Service box grid */
+    .service-boxes {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 24px;
+        padding: 0 30px;
+    }
 
-/* Individual service card */
-.service-box {
-    margin-top: 20px;
-    width: 280px;
-    background: #008B8B;
-    border-radius: 16px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease;
-    border: 4px solid wheat;
-}
+    /* Individual service card */
+    .service-box {
+        margin-top: 20px;
+        width: 280px;
+        background: #008B8B;
+        border-radius: 16px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease;
+        border: 4px solid wheat;
+        /* Flex layout to stack items nicely */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-.service-box:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
+    .service-box:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
 
-.container {
-    background: transparent;
-}
+    .container {
+        background: transparent;
+    }
 
+    /* --- NEW CSS FOR IMAGES --- */
+    .service-box img {
+        width: 100%;
+        height: 180px; /* Fixed height for consistency */
+        object-fit: cover; /* Ensures image fills area without stretching */
+        border-radius: 10px; /* Rounds the corners of the image */
+        margin-bottom: 15px; /* Space between image and text */
+        border: 2px solid rgba(255,255,255,0.3); /* Optional: subtle inner border */
+    }
+    /* ------------------------ */
 
-/* Headings & text inside cards */
-.service-box h3 {
-    font-size: 20px;
-    color: white;
-    margin-bottom: 10px;
-}
+    /* Headings & text inside cards */
+    .service-box h3 {
+        font-size: 20px;
+        color: white;
+        margin-bottom: 5px; /* Reduced margin slightly */
+    }
 
-.service-box p {
-    font-size: 20px;
-    color: white;
-}
+    .service-box p {
+        font-size: 20px;
+        color: white;
+        margin-top: 0; 
+    }
 
-/* Booking Button styling */
-.book-btn-small {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: whitesmoke;
-    color: #008B8B;
-    font-size: 16px;
-    font-weight: 500;
-    text-decoration: none;
-    border-radius: 20px;
-    transition: background-color wheat 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+    /* Booking Button styling */
+    .book-btn-small {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: whitesmoke;
+        color: #008B8B;
+        font-size: 16px;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: 20px;
+        transition: background-color 0.3s ease; /* Fixed syntax error here */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
 
-.book-btn-small:hover {
-    background-color: #cf711f;
-}
+    .book-btn-small:hover {
+        background-color: #cf711f;
+    }
 
-.logout-btn {
-    float: right;
-    margin-left: auto;
-    padding: 10px 18px;
-    background-color: #cf711f;
-    color: red;
-    border-radius: 8px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
+    .logout-btn {
+        float: right;
+        margin-left: auto;
+        padding: 10px 18px;
+        background-color: #cf711f;
+        color: red;
+        border-radius: 8px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
 
-.logout-btn:hover {
-    background-color: red;
-}
-
-
+    .logout-btn:hover {
+        background-color: red;
+    }
 </style>
 <body>
    <nav class="nav-right">
@@ -178,12 +188,55 @@ html, body {
     <div class="container">
         <h1 class="title-text">Haircuts We Have</h1>
         <div class="service-boxes">
-            <div class="service-box"><h3>Classic Cut</h3><p>₹300</p><a href="/pay/classic-cut" class="book-btn-small">Book Now</a></div>
-            <div class="service-box"><h3>Fade Cut</h3><p>₹350</p><a href="/pay/classic-cut" class="book-btn-small">Book Now</a></div>
-            <div class="service-box"><h3>Layered Cut</h3><p>₹400</p><a href="/pay/classic-cut" class="book-btn-small">Book Now</a></div>
-            <div class="service-box"><h3>Bob Cut</h3><p>₹450</p><a href="/pay/classic-cut" class="book-btn-small">Book Now</a></div>
-            <div class="service-box"><h3>Undercut</h3><p>₹500</p><a href="/pay/classic-cut" class="book-btn-small">Book Now</a></div>
-            <div class="service-box"><h3>Trim & Shape</h3><p>₹250</p><a href="/pay/classic-cut" class="book-btn-small">Book Now</a></div>
+            
+            <!-- 1. Classic Cut -->
+            <div class="service-box">
+                <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=600&auto=format&fit=crop" alt="Classic Cut">
+                <h3>Classic Cut</h3>
+                <p>₹300</p>
+                <a href="/pay/classic-cut" class="book-btn-small">Book Now</a>
+            </div>
+
+            <!-- 2. Fade Cut -->
+            <div class="service-box">
+                <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=600&auto=format&fit=crop" alt="Fade Cut">
+                <h3>Fade Cut</h3>
+                <p>₹350</p>
+                <a href="/pay/classic-cut" class="book-btn-small">Book Now</a>
+            </div>
+
+            <!-- 3. Layered Cut -->
+            <div class="service-box">
+                <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?q=80&w=600&auto=format&fit=crop" alt="Layered Cut">
+                <h3>Layered Cut</h3>
+                <p>₹400</p>
+                <a href="/pay/classic-cut" class="book-btn-small">Book Now</a>
+            </div>
+
+            <!-- 4. Bob Cut -->
+            <div class="service-box">
+                <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?q=80&w=600&auto=format&fit=crop" alt="Bob Cut">
+                <h3>Bob Cut</h3>
+                <p>₹450</p>
+                <a href="/pay/classic-cut" class="book-btn-small">Book Now</a>
+            </div>
+
+            <!-- 5. Undercut -->
+            <div class="service-box">
+                <img src="https://images.unsplash.com/photo-1596728325488-58c87691e9af?q=80&w=600&auto=format&fit=crop" alt="Undercut">
+                <h3>Undercut</h3>
+                <p>₹500</p>
+                <a href="/pay/classic-cut" class="book-btn-small">Book Now</a>
+            </div>
+
+            <!-- 6. Trim & Shape -->
+            <div class="service-box">
+                <img src="https://images.unsplash.com/photo-1503951914875-452162b7f300?q=80&w=600&auto=format&fit=crop" alt="Trim & Shape">
+                <h3>Trim & Shape</h3>
+                <p>₹250</p>
+                <a href="/pay/classic-cut" class="book-btn-small">Book Now</a>
+            </div>
+
         </div>
         
     </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Beard Trimming We Have</title>
@@ -8,27 +9,40 @@
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
+            font-family: 'Poppins', Arial, sans-serif;
+            /* Updated font for consistency */
+            background-color: #f4f4f4;
         }
 
         /* NAVBAR */
         .navbar {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
+            /* Changed from 'flex-end' to 'center' so nothing gets cut off */
             padding: 20px 40px;
             background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
         .navbar a {
             margin-left: 25px;
+            /* Space between links */
             text-decoration: none;
-            color: teal;
+            color: #008B8B;
+            /* Teal */
             font-weight: 600;
             font-size: 22px;
+            position: relative;
+            transition: font-size 0.3s ease;
+            /* Smooth transition for size change */
         }
 
-        .nav-right a::after {
+        /* Handle hover effect */
+        .navbar a::after {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -39,16 +53,44 @@
             transition: width 0.3s ease;
         }
 
-            .nav-right a:hover::after {
-            width: 100%;}
+        .navbar a:hover::after {
+            width: 100%;
+        }
+
+        /* --- RESPONSIVE FIX FOR NAVBAR --- */
+        /* On smaller laptops/tablets, shrink the font slightly */
+        @media (max-width: 1100px) {
+            .navbar a {
+                font-size: 18px;
+                margin-left: 20px;
+            }
+        }
+
+        /* On mobile devices, make the links even smaller to fit */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 10px;
+                /* Reduce padding to save space */
+                justify-content: flex-start;
+                /* Align left on very small screens if needed */
+            }
+
+            .navbar a {
+                font-size: 14px;
+                margin-left: 15px;
+            }
+        }
 
         /* PAGE TITLE */
         .title {
             text-align: center;
             font-size: 42px;
             font-weight: bold;
-            color: teal;
-            margin: 40px 0 60px;
+            color: #008B8B;
+            margin: 120px 0 60px;
+            /* Increased top margin for fixed navbar */
+            font-family: 'Poetsen One', cursive;
+            /* Added styling font */
         }
 
         /* CARD GRID */
@@ -57,50 +99,77 @@
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 40px;
             padding: 0 80px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         /* CARD */
         .card {
-            background-color: teal;
+            background-color: #008B8B;
+            /* Teal */
             border-radius: 18px;
-            padding: 40px 20px;
+            padding: 30px 20px;
+            /* Adjusted padding */
             text-align: center;
             color: white;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
             border: 4px solid #f6d79a;
+            /* Gold border */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
         }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* --- ADDED IMAGE STYLING --- */
+        .card img {
+            width: 100%;
+            height: 200px;
+            /* Fixed height for uniformity */
+            object-fit: cover;
+            /* Ensures image fills area without stretching */
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* --------------------------- */
 
         .card h3 {
             font-size: 24px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
+            margin-top: 0;
         }
 
         .card p {
-            font-size: 20px;
-            margin-bottom: 30px;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #f6d79a;
         }
 
         /* BUTTON */
         .card a {
             display: inline-block;
             background-color: white;
-            color: teal;
-            padding: 10px 26px;
+            color: #008B8B;
+            padding: 10px 30px;
             border-radius: 25px;
             text-decoration: none;
             font-weight: bold;
             font-size: 15px;
+            transition: all 0.3s ease;
+            width: 80%;
         }
 
         .card a:hover {
             background-color: #f6d79a;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .card-wrapper {
-                padding: 0 30px 60px;
-            }
+            color: #333;
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -122,49 +191,73 @@
     <!-- CARDS -->
     <div class="card-wrapper">
 
+        <!-- 1. Full Beard Trim -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop"
+                alt="Full Beard Trim">
             <h3>Full Beard Trim</h3>
             <p>₹300</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 2. Short Beard Trim -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1620122830782-c88a72722e5e?q=80&w=600&auto=format&fit=crop"
+                alt="Short Beard Trim">
             <h3>Short Beard Trim</h3>
             <p>₹250</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 3. Boxed Beard -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1622287172451-aa06c8369735?q=80&w=600&auto=format&fit=crop"
+                alt="Boxed Beard">
             <h3>Boxed Beard</h3>
             <p>₹350</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 4. French Beard -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=600&auto=format&fit=crop"
+                alt="French Beard">
             <h3>French Beard</h3>
             <p>₹280</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 5. Balbo Beard -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1612287232817-6098f5c2746f?q=80&w=600&auto=format&fit=crop"
+                alt="Balbo Beard">
             <h3>Balbo Beard</h3>
             <p>₹400</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 6. Circle Beard -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=600&auto=format&fit=crop"
+                alt="Circle Beard">
             <h3>Circle Beard</h3>
             <p>₹320</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 7. Stubble Beard -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=600&auto=format&fit=crop"
+                alt="Stubble Beard">
             <h3>Stubble Beard</h3>
             <p>₹200</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 8. Corporate Beard -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=600&auto=format&fit=crop"
+                alt="Corporate Beard">
             <h3>Corporate Beard</h3>
             <p>₹450</p>
             <a href="#">Book Now</a>
@@ -173,4 +266,5 @@
     </div>
 
 </body>
+
 </html>

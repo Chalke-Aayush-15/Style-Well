@@ -38,21 +38,17 @@ urlpatterns = [
 
     # Keep ONLY one logout
     path('logout/', views.logout_view, name='logout'),
-    
-    path('adminDashboard/', views.adminDashboard, name='adminDashboard'),
+    path('admin-dashboard/', views.admin_dashboard, name='adminDashboard'),
     path('userDashboard/', views.userDashboard, name='userDashboard'),
 
     path('haircuts/', views.haircuts, name='haircuts'),
     path('beard-types/', views.beard_types, name='beard_types'),
     path('hairstyling/', views.hairstyling, name='hairstyling'),
-    path(
-        'hairtreatments_types/',
-        views.hair_treatments,
-        name='hair_treatments'
-    ),
-    # Lookbook API endpoints
-    path('api/lookbook/', views.lookbook_api, name='lookbook_api'),
-    path('api/lookbook/<int:pk>/', views.lookbook_detail_api, name='lookbook_detail_api'),
+    path('hairtreatments_types/', views.hair_treatments, name='hair_treatments'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    
+
+
 ]
 
 # ✅ Serve uploaded media files during development

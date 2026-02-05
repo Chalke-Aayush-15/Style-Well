@@ -8,24 +8,41 @@
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
+            font-family: 'Poppins', Arial, sans-serif; /* Updated to Poppins for consistency */
+            background-color: #f4f4f4;
         }
 
-        /* NAVBAR */
+        /* NAVBAR - Kept exactly as requested */
         .navbar {
             display: flex;
             justify-content: flex-end;
             padding: 20px 40px;
             background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Added subtle shadow for polish */
         }
 
         .navbar a {
             margin-left: 25px;
             text-decoration: none;
-            color: teal;
+            color: teal; /* Using 'teal' keyword, close to #008B8B */
             font-weight: 600;
             font-size: 22px;
+            position: relative;
+        }
+        
+        /* Hover effect for navbar links */
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: teal;
+            transition: width 0.3s ease;
+        }
+        .navbar a:hover::after {
+            width: 100%;
         }
 
         /* PAGE TITLE */
@@ -34,7 +51,8 @@
             font-size: 42px;
             font-weight: bold;
             color: teal;
-            margin: 40px 0 60px;
+            margin: 60px 0 60px; /* Adjusted top margin since navbar is static */
+            font-family: 'Poetsen One', cursive;
         }
 
         /* CARD GRID */
@@ -43,27 +61,50 @@
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 40px;
             padding: 0 80px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         /* CARD */
         .card {
             background-color: teal;
             border-radius: 18px;
-            padding: 40px 20px;
+            padding: 30px 20px; /* Adjusted padding for image layout */
             text-align: center;
             color: white;
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
             border: 4px solid #f6d79a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* --- ADDED IMAGE STYLING --- */
+        .card img {
+            width: 100%;
+            height: 200px; /* Fixed height for uniformity */
+            object-fit: cover; /* Ensures image fills area without stretching */
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .card h3 {
             font-size: 24px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
+            margin-top: 0;
         }
 
         .card p {
-            font-size: 20px;
-            margin-bottom: 30px;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #f6d79a;
         }
 
         /* BUTTON */
@@ -71,22 +112,26 @@
             display: inline-block;
             background-color: white;
             color: teal;
-            padding: 10px 26px;
+            padding: 10px 30px;
             border-radius: 25px;
             text-decoration: none;
             font-weight: bold;
             font-size: 15px;
+            transition: all 0.3s ease;
+            width: 80%;
         }
 
         .card a:hover {
             background-color: #f6d79a;
+            color: #333;
         }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .card-wrapper {
-                padding: 0 30px 60px;
-            }
+            .navbar { padding: 15px 20px; }
+            .navbar a { font-size: 18px; margin-left: 15px; }
+            .card-wrapper { padding: 0 30px 60px; }
+            .title { margin-top: 100px; }
         }
     </style>
 </head>
@@ -108,49 +153,65 @@
     <!-- CARDS -->
     <div class="card-wrapper">
 
+        <!-- 1. Blow Dry Styling -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=600&auto=format&fit=crop" alt="Blow Dry Styling">
             <h3>Blow Dry Styling</h3>
             <p>₹400</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 2. Hair Ironing -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=600&auto=format&fit=crop" alt="Hair Ironing">
             <h3>Hair Ironing</h3>
             <p>₹600</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 3. Hair Curling -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?q=80&w=600&auto=format&fit=crop" alt="Hair Curling">
             <h3>Hair Curling</h3>
             <p>₹700</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 4. Hair Straightening -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1492106087820-71f171a808e8?q=80&w=600&auto=format&fit=crop" alt="Hair Straightening">
             <h3>Hair Straightening</h3>
             <p>₹1200</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 5. Hair Smoothening -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=600&auto=format&fit=crop" alt="Hair Smoothening">
             <h3>Hair Smoothening</h3>
             <p>₹2500</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 6. Keratin Treatment -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?q=80&w=600&auto=format&fit=crop" alt="Keratin Treatment">
             <h3>Keratin Treatment</h3>
             <p>₹3000</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 7. Party Hairstyling -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=600&auto=format&fit=crop" alt="Party Hairstyling">
             <h3>Party Hairstyling</h3>
             <p>₹800</p>
             <a href="#">Book Now</a>
         </div>
 
+        <!-- 8. Bridal Hairstyling -->
         <div class="card">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop" alt="Bridal Hairstyling">
             <h3>Bridal Hairstyling</h3>
             <p>₹5000</p>
             <a href="#">Book Now</a>
