@@ -5,9 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from django.shortcuts import render
-from Home.models import Appointment
+from Home.models import Appointment, Lookbook
 from django.db.models import Q
-# from .models import Service
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from .serializers import LookbookSerializer
 
 def index(request):
     return render(request, 'home.html')
@@ -151,3 +155,90 @@ def hair_treatments(request):
 @login_required
 def admin_dashboard(request):
     return render(request, 'admin-dashboard.html')
+
+
+# ==================== LOOKBOOK API ====================
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def lookbook_api(request):
+    """
+    GET: Retrieve all lookbook images for the authenticated user
+    POST: Upload a new lookbook image for the authenticated user
+    """
+    
+    if request.method == 'GET':
+        # Get all lookbook images for the current user
+        lookbooks = Lookbook.objects.filter(user=request.user)
+        serializer = LookbookSerializer(lookbooks, many=True, context={'request': request})
+        return Response({
+            'success': True,
+            'count': lookbooks.count(),
+            'data': serializer.data
+        }, status=status.HTTP_200_OK)
+    
+    elif request.method == 'POST':
+        # Create a new lookbook entry for the current user
+        serializer = LookbookSerializer(data=request.data, context={'request': request})
+        
+        if serializer.is_valid():
+            serializer.save(user=request.user)  # Automatically set the user
+            return Response({
+                'success': True,
+                'message': 'Image uploaded successfully',
+                'data': serializer.data
+            }, status=status.HTTP_201_CREATED)
+        
+        return Response({
+            'success': False,
+            'errors': serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def lookbook_detail_api(request, pk):
+    """
+    GET: Retrieve a specific lookbook image
+    PUT: Update a lookbook image (title only)
+    DELETE: Delete a lookbook image
+    """
+    
+    try:
+        # Make sure user can only access their own lookbook images
+        lookbook = Lookbook.objects.get(pk=pk, user=request.user)
+    except Lookbook.DoesNotExist:
+        return Response({
+            'success': False,
+            'message': 'Lookbook image not found or you do not have permission'
+        }, status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = LookbookSerializer(lookbook, context={'request': request})
+        return Response({
+            'success': True,
+            'data': serializer.data
+        }, status=status.HTTP_200_OK)
+    
+    elif request.method == 'PUT':
+        # Allow updating title only
+        serializer = LookbookSerializer(lookbook, data=request.data, partial=True, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'success': True,
+                'message': 'Updated successfully',
+                'data': serializer.data
+            }, status=status.HTTP_200_OK)
+        
+        return Response({
+            'success': False,
+            'errors': serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        lookbook.delete()
+        return Response({
+            'success': True,
+            'message': 'Image deleted successfully'
+        }, status=status.HTTP_204_NO_CONTENT)

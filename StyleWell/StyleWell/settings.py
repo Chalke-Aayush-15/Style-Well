@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'rest_framework',
     "Home",
 ]
 
@@ -129,3 +130,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Authentication redirects
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'login'
+
+# settings.py
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

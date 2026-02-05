@@ -900,7 +900,7 @@
                 </div>
 
                 <!-- VIEW: STYLES (Placeholder) -->
-                <div id="view-styles" class="view-section" style="display:none;">
+                {% comment %} <div id="view-styles" class="view-section" style="display:none;">
                     <div class="section-box">
                         <div class="section-header">
                             <h2 class="brand-font">My Lookbook</h2>
@@ -918,6 +918,62 @@
                             </div>
                         </div>
                     </div>
+                </div> {% endcomment %}
+
+                <!-- Updated HTML Structure -->
+                <div id="view-styles" class="view-section" style="display:none;">
+                    <div class="section-box">
+                        <div class="section-header">
+                            <h2 class="brand-font">My Lookbook</h2>
+                            <button class="action-btn secondary" onclick="triggerFileUpload()">
+                                <i class="fas fa-upload"></i> Upload Photo
+                            </button>
+                            <!-- Hidden file input -->
+                            <input type="file" id="lookbook-file-input" accept="image/*" style="display: none;" onchange="uploadLookbookImage(event)">
+                        </div>
+                        
+                        <!-- Loading Spinner -->
+                        <div id="lookbook-loading" style="display: none; text-align: center; padding: 40px;">
+                            <div style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                            <p style="margin-top: 10px; color: #aaa;">Loading your lookbook...</p>
+                        </div>
+                        
+                        <!-- Error Message -->
+                        <div id="lookbook-error" style="display: none; padding: 15px; background: rgba(255, 0, 0, 0.1); border-radius: 8px; color: #ff6b6b; margin-bottom: 15px;">
+                            <i class="fas fa-exclamation-circle"></i> <span id="error-message"></span>
+                        </div>
+                        
+                        <!-- Success Message -->
+                        <div id="lookbook-success" style="display: none; padding: 15px; background: rgba(0, 255, 0, 0.1); border-radius: 8px; color: #51cf66; margin-bottom: 15px;">
+                            <i class="fas fa-check-circle"></i> <span id="success-message"></span>
+                        </div>
+                        
+                        <!-- Lookbook Grid -->
+                        <div id="lookbook-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                            <!-- Images will be dynamically loaded here -->
+                        </div>
+                        
+                        <!-- Empty State -->
+                        <div id="empty-state" style="display: none; text-align: center; padding: 60px 20px; color: #aaa;">
+                            <i class="fas fa-images" style="font-size: 64px; margin-bottom: 20px; opacity: 0.3;"></i>
+                            <h3 style="margin-bottom: 10px;">No photos yet</h3>
+                            <p>Upload your first hairstyle photo to start building your lookbook!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Preview Modal -->
+                <div id="image-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; cursor: pointer;" onclick="closeImageModal()">
+                    <span style="position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
+                    <img id="modal-image" style="margin: auto; display: block; max-width: 90%; max-height: 90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); padding: 10px 20px; border-radius: 5px;">
+                        <button onclick="deleteLookbookImage(event)" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-right: 10px;">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                        <button onclick="closeImageModal()" style="background: #95a5a6; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
+                            Close
+                        </button>
+                    </div>
                 </div>
 
             </div>
@@ -928,6 +984,234 @@
     <div id="toast" class="toast">Action Successful!</div>
 
     <script>
+/* =======================
+   NAVIGATION
+======================= */
+function switchTab(tabName) {
+    document.querySelectorAll('.view-section').forEach(v => v.style.display = 'none');
+
+    const selectedView = document.getElementById('view-' + tabName);
+    if (selectedView) selectedView.style.display = 'block';
+
+    if (tabName === 'styles') {
+        loadLookbookImages();
+    }
+
+    const titleMap = {
+        home: 'Welcome back, Sarah!',
+        booking: 'Book Appointment',
+        history: 'Visit History',
+        styles: 'My Lookbook',
+        profile: 'Profile Settings'
+    };
+    document.getElementById('page-title').innerText =
+        titleMap[tabName] || 'Client Portal';
+
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+}
+
+/* =======================
+   BOOKING WIZARD
+======================= */
+let currentStep = 1;
+const bookingData = { service: null, price: null, stylist: null };
+
+function nextStep() {
+    if (currentStep === 1 && !bookingData.service) return showToast('Select a service');
+    if (currentStep === 2 && !bookingData.stylist) return showToast('Choose a stylist');
+
+    if (currentStep === 3) {
+        const date = document.getElementById('bookingDate').value;
+        if (!date) return showToast('Select a date');
+
+        document.getElementById('review-service').innerText = bookingData.service;
+        document.getElementById('review-stylist').innerText = bookingData.stylist;
+        document.getElementById('review-date').innerText =
+            new Date(date).toLocaleDateString() + ' at ' +
+            document.getElementById('bookingTime').value;
+        document.getElementById('review-price').innerText =
+            '$' + bookingData.price.toFixed(2);
+    }
+
+    if (currentStep < 4) {
+        document.getElementById(`step-${currentStep}`).classList.remove('active-step');
+        document.getElementById(`step-indicator-${currentStep}`).classList.add('completed');
+        document.getElementById(`step-indicator-${currentStep}`).classList.remove('active');
+
+        currentStep++;
+        document.getElementById(`step-${currentStep}`).classList.add('active-step');
+        document.getElementById(`step-indicator-${currentStep}`).classList.add('active');
+    }
+}
+
+function prevStep() {
+    if (currentStep > 1) {
+        document.getElementById(`step-${currentStep}`).classList.remove('active-step');
+        document.getElementById(`step-indicator-${currentStep}`).classList.remove('active');
+
+        currentStep--;
+        document.getElementById(`step-${currentStep}`).classList.add('active-step');
+        document.getElementById(`step-indicator-${currentStep}`).classList.add('active');
+        document.getElementById(`step-indicator-${currentStep}`).classList.remove('completed');
+    }
+}
+
+function selectItem(type, element, name, price) {
+    [...element.parentElement.children].forEach(el => el.classList.remove('selected'));
+    element.classList.add('selected');
+
+    if (type === 'service') {
+        bookingData.service = name;
+        bookingData.price = price;
+    } else {
+        bookingData.stylist = name;
+    }
+}
+
+function finishBooking() {
+    showToast('Booking Confirmed!');
+    setTimeout(() => switchTab('home'), 1500);
+}
+
+/* =======================
+   TOAST
+======================= */
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.innerText = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+/* =======================
+   CSRF
+======================= */
+function getCookie(name) {
+    let value = null;
+    document.cookie.split(';').forEach(c => {
+        c = c.trim();
+        if (c.startsWith(name + '=')) value = decodeURIComponent(c.slice(name.length + 1));
+    });
+    return value;
+}
+const csrftoken = getCookie('csrftoken');
+
+/* =======================
+   LOOKBOOK
+======================= */
+let currentImageId = null;
+
+function triggerFileUpload() {
+    document.getElementById('lookbook-file-input').click();
+}
+
+function showMessage(type, msg) {
+    const ok = document.getElementById('lookbook-success');
+    const err = document.getElementById('lookbook-error');
+    ok.style.display = err.style.display = 'none';
+
+    if (type === 'success') {
+        document.getElementById('success-message').innerText = msg;
+        ok.style.display = 'block';
+    } else {
+        document.getElementById('error-message').innerText = msg;
+        err.style.display = 'block';
+    }
+}
+
+async function loadLookbookImages() {
+    const loading = document.getElementById('lookbook-loading');
+    const grid = document.getElementById('lookbook-grid');
+    const empty = document.getElementById('empty-state');
+
+    loading.style.display = 'block';
+    grid.innerHTML = '';
+    empty.style.display = 'none';
+
+    try {
+        const res = await fetch('/api/lookbook/', { credentials: 'same-origin' });
+        const data = await res.json();
+
+        if (data.success && data.data.length) {
+            data.data.forEach(img => {
+                const div = document.createElement('div');
+                div.innerHTML = `<img src="${img.image_url}">`;
+                div.onclick = () => openImageModal(img.image_url, img.id);
+                grid.appendChild(div);
+            });
+        } else {
+            empty.style.display = 'block';
+        }
+    } catch {
+        showMessage('error', 'Failed to load lookbook');
+    } finally {
+        loading.style.display = 'none';
+    }
+}
+
+async function uploadLookbookImage(e) {
+    const file = e.target.files[0];
+    if (!file || !file.type.startsWith('image/')) {
+        return showMessage('error', 'Invalid image');
+    }
+
+    const fd = new FormData();
+    fd.append('image', file);
+    fd.append('title', file.name);
+
+    try {
+        const res = await fetch('/api/lookbook/', {
+            method: 'POST',
+            headers: { 'X-CSRFToken': csrftoken },
+            body: fd,
+            credentials: 'same-origin'
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            showMessage('success', 'Uploaded!');
+            loadLookbookImages();
+        } else {
+            showMessage('error', 'Upload failed');
+        }
+    } catch {
+        showMessage('error', 'Upload error');
+    } finally {
+        e.target.value = '';
+    }
+}
+
+async function deleteLookbookImageById(id) {
+    await fetch(`/api/lookbook/${id}/`, {
+        method: 'DELETE',
+        headers: { 'X-CSRFToken': csrftoken },
+        credentials: 'same-origin'
+    });
+    loadLookbookImages();
+}
+
+function openImageModal(url, id) {
+    currentImageId = id;
+    document.getElementById('modal-image').src = url;
+    document.getElementById('image-modal').style.display = 'block';
+}
+
+function closeImageModal() {
+    document.getElementById('image-modal').style.display = 'none';
+    currentImageId = null;
+}
+
+function deleteLookbookImage(e) {
+    e.stopPropagation();
+    if (currentImageId && confirm('Delete image?')) {
+        closeImageModal();
+        deleteLookbookImageById(currentImageId);
+    }
+}
+</script>
+
+
+    {% comment %} <script>
         // --- NAVIGATION LOGIC ---
         function switchTab(tabName) {
             // Hide all views
@@ -1070,6 +1354,251 @@
             toast.className = "toast show";
             setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
         }
-    </script>
+
+        // Global variable to store current image ID for deletion
+        let currentImageId = null;
+
+        // Function to get CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+
+        // Show/Hide Messages
+        function showMessage(type, message) {
+            const successDiv = document.getElementById('lookbook-success');
+            const errorDiv = document.getElementById('lookbook-error');
+            
+            if (type === 'success') {
+                document.getElementById('success-message').textContent = message;
+                successDiv.style.display = 'block';
+                errorDiv.style.display = 'none';
+                setTimeout(() => successDiv.style.display = 'none', 3000);
+            } else {
+                document.getElementById('error-message').textContent = message;
+                errorDiv.style.display = 'block';
+                successDiv.style.display = 'none';
+                setTimeout(() => errorDiv.style.display = 'none', 5000);
+            }
+        }
+
+        // Fetch and display lookbook images (GET API)
+        async function loadLookbookImages() {
+            const loadingDiv = document.getElementById('lookbook-loading');
+            const gridDiv = document.getElementById('lookbook-grid');
+            const emptyState = document.getElementById('empty-state');
+            
+            loadingDiv.style.display = 'block';
+            gridDiv.innerHTML = '';
+            emptyState.style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/lookbook/', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    credentials: 'same-origin'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success && result.data.length > 0) {
+                    // Display images
+                    result.data.forEach(item => {
+                        const imageDiv = document.createElement('div');
+                        imageDiv.className = 'lookbook-item';
+                        imageDiv.onclick = () => openImageModal(item.image_url, item.id);
+                        
+                        imageDiv.innerHTML = `
+                            <img src="${item.image_url}" alt="${item.title || 'Lookbook Image'}">
+                            <button class="delete-btn" onclick="confirmDelete(event, ${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        `;
+                        
+                        gridDiv.appendChild(imageDiv);
+                    });
+                    
+                    // Add "Add New" box
+                    const addNewDiv = document.createElement('div');
+                    addNewDiv.className = 'add-new-box';
+                    addNewDiv.onclick = triggerFileUpload;
+                    addNewDiv.innerHTML = '<span>+ Add New<br>Style</span>';
+                    gridDiv.appendChild(addNewDiv);
+                    
+                } else {
+                    // Show empty state
+                    emptyState.style.display = 'block';
+                }
+                
+            } catch (error) {
+                console.error('Error loading lookbook:', error);
+                showMessage('error', 'Failed to load your lookbook. Please try again.');
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        }
+
+        // Trigger file upload
+        function triggerFileUpload() {
+            document.getElementById('lookbook-file-input').click();
+        }
+
+        // Upload image (POST API)
+        async function uploadLookbookImage(event) {
+            const file = event.target.files[0];
+            
+            if (!file) return;
+            
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                showMessage('error', 'Please select a valid image file');
+                return;
+            }
+            
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showMessage('error', 'Image size should not exceed 5MB');
+                return;
+            }
+            
+            const loadingDiv = document.getElementById('lookbook-loading');
+            loadingDiv.style.display = 'block';
+            
+            // Create FormData
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('title', file.name.split('.')[0]); // Use filename as title
+            
+            try {
+                const response = await fetch('/api/lookbook/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                    },
+                    credentials: 'same-origin',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('success', 'Image uploaded successfully!');
+                    // Reload images
+                    loadLookbookImages();
+                } else {
+                    showMessage('error', result.errors?.image?.[0] || 'Failed to upload image');
+                }
+                
+            } catch (error) {
+                console.error('Upload error:', error);
+                showMessage('error', 'Upload failed. Please try again.');
+            } finally {
+                loadingDiv.style.display = 'none';
+                // Reset file input
+                event.target.value = '';
+            }
+        }
+
+        // Confirm delete with event stopPropagation
+        function confirmDelete(event, imageId) {
+            event.stopPropagation(); // Prevent opening modal
+            
+            if (confirm('Are you sure you want to delete this image?')) {
+                deleteLookbookImageById(imageId);
+            }
+        }
+
+        // Delete image by ID (DELETE API)
+        async function deleteLookbookImageById(imageId) {
+            const loadingDiv = document.getElementById('lookbook-loading');
+            loadingDiv.style.display = 'block';
+            
+            try {
+                const response = await fetch(`/api/lookbook/${imageId}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                    },
+                    credentials: 'same-origin'
+                });
+                
+                if (response.ok) {
+                    showMessage('success', 'Image deleted successfully!');
+                    loadLookbookImages();
+                } else {
+                    showMessage('error', 'Failed to delete image');
+                }
+                
+            } catch (error) {
+                console.error('Delete error:', error);
+                showMessage('error', 'Delete failed. Please try again.');
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        }
+
+        // Open image modal
+        function openImageModal(imageUrl, imageId) {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            
+            currentImageId = imageId;
+            modal.style.display = 'block';
+            modalImg.src = imageUrl;
+        }
+
+        // Close image modal
+        function closeImageModal() {
+            document.getElementById('image-modal').style.display = 'none';
+            currentImageId = null;
+        }
+
+        // Delete from modal
+        function deleteLookbookImage(event) {
+            event.stopPropagation();
+            
+            if (currentImageId && confirm('Are you sure you want to delete this image?')) {
+                closeImageModal();
+                deleteLookbookImageById(currentImageId);
+            }
+        }
+
+        // Load images when page loads or when switching to this view
+        // You can call this function when the "My Styles" section becomes visible
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if the view-styles section is visible, then load
+            const viewStylesSection = document.getElementById('view-styles');
+            
+            // Option 1: Load immediately if visible
+            // if (viewStylesSection && viewStylesSection.style.display !== 'none') {
+            //    loadLookbookImages();
+            // }
+            
+            // Option 2: If you have a navigation system, call loadLookbookImages() when user clicks "My Styles"
+            // For example:
+             document.querySelector('[data-view="my-styles"]').addEventListener('click', loadLookbookImages);
+        });
+
+        // If you want to load images when the section becomes visible, use this:
+        function showMyStylesSection() {
+            document.getElementById('view-styles').style.display = 'block';
+            loadLookbookImages(); // Load images when section is shown
+        }
+    </script> {% endcomment %}
 </body>
 </html>

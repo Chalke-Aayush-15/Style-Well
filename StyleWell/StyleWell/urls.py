@@ -15,30 +15,49 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+
+
 from django.contrib import admin
 from django.urls import path
 from Home import views
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
     path('', views.index, name='home'),
     path('features/', views.features, name='features'),
     path('services/', views.services, name='services'),
     path('testimonials/', views.testimonials, name='testimonials'),
     path('contacts/', views.contacts, name='contacts'),
+
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login'),
+
+    # Keep ONLY one logout
     path('logout/', views.logout_view, name='logout'),
+    
     path('adminDashboard/', views.adminDashboard, name='adminDashboard'),
     path('userDashboard/', views.userDashboard, name='userDashboard'),
+
     path('haircuts/', views.haircuts, name='haircuts'),
     path('beard-types/', views.beard_types, name='beard_types'),
     path('hairstyling/', views.hairstyling, name='hairstyling'),
-    path('hairtreatments_types/',
-    views.hair_treatments,
-    name='hair_treatments'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-
-
+    path(
+        'hairtreatments_types/',
+        views.hair_treatments,
+        name='hair_treatments'
+    ),
+    # Lookbook API endpoints
+    path('api/lookbook/', views.lookbook_api, name='lookbook_api'),
+    path('api/lookbook/<int:pk>/', views.lookbook_detail_api, name='lookbook_detail_api'),
 ]
+
+# ✅ Serve uploaded media files during development
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )

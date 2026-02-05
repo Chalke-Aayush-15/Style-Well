@@ -36,3 +36,15 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.date} {self.time}"
+    
+class Lookbook(models.Model):  # Changed to capital L for convention
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lookbooks')  # Added user field
+    title = models.CharField(max_length=100, blank=True)
+    image = models.ImageField(upload_to='lookbook_images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-uploaded_at']  # Show newest first
+
+    def __str__(self):
+        return f"{self.user.username} - {self.title or 'Untitled'}"
